@@ -953,54 +953,30 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
     }
   }
 
-  /* ---- Faixa corrida que reage à rolagem ----
-     O movimento roda na placa de vídeo (Web Animations); o script só muda a velocidade.
-     Assim a faixa continua lisa mesmo enquanto o celular carrega fotos durante a rolagem. */
-  var faixa = document.querySelector('.faixa'), trilho = $('trilho'), faixaRolagem = null;
+  /* ---- Faixa corrida em velocidade constante ----
+     O movimento roda na placa de vídeo (Web Animations), sempre na mesma velocidade em pixels por segundo,
+     seja qual for o tamanho da tela. Fora da tela, a faixa para, para poupar bateria. */
+  var faixa = document.querySelector('.faixa'), trilho = $('trilho');
   if (anim && temIO && faixa && trilho && trilho.children.length === 2 && trilho.animate) {
-    var BASE = 42;                                        // pixels por segundo com a página parada
+    var BASE = 42;                                        // pixels por segundo
     var duracao = function(){ return Math.max(8000, trilho.children[0].getBoundingClientRect().width / BASE * 1000); };
     var af = trilho.animate(
       [{ transform: 'translate3d(0,0,0)' }, { transform: 'translate3d(-50%,0,0)' }],
       { duration: duracao(), iterations: Infinity }
     );
-    af.currentTime = af.effect.getTiming().duration * 500;  // folga para andar de trás para frente quando a pessoa sobe
     faixa.classList.add('js');
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){
       var tempo = af.currentTime / af.effect.getTiming().duration;
       var d = duracao(); af.effect.updateTiming({ duration: d }); af.currentTime = tempo * d;
     });
-    var definir = function(r){ if (af.updatePlaybackRate) af.updatePlaybackRate(r); else af.playbackRate = r; };
-    var ritmo = 1, sentido = 1, impulso = 0, rodando = false, tAnt = 0, tEnvio = 0, visivel = false;
-    var quadro = function(t){
-      var dt = tAnt ? Math.min(0.05, (t - tAnt) / 1000) : 0; tAnt = t;
-      impulso *= Math.pow(0.04, dt);                      // o impulso da rolagem some em cerca de 1 segundo
-      var alvo = sentido * (1 + impulso / BASE);
-      ritmo += (alvo - ritmo) * Math.min(1, dt * 5);
-      if (impulso < 0.5 && Math.abs(alvo - ritmo) < 0.02) { definir(sentido); ritmo = sentido; rodando = false; tAnt = 0; return; }
-      if (t - tEnvio > 50) { definir(ritmo); tEnvio = t; }
-      requestAnimationFrame(quadro);
-    };
-    new IntersectionObserver(function(e){
-      visivel = e[0].isIntersecting;
-      if (visivel) af.play(); else af.pause();            // fora da tela, a faixa descansa
-    }).observe(faixa);
-    faixaRolagem = function(d){
-      if (!d) return;
-      sentido = d > 0 ? 1 : -1;                           // descer: para a esquerda; subir: para a direita
-      if (!visivel) return;
-      impulso = Math.min(360, impulso + Math.abs(d) * 3);
-      if (!rodando) { rodando = true; requestAnimationFrame(quadro); }
-    };
+    new IntersectionObserver(function(e){ if (e[0].isIntersecting) af.play(); else af.pause(); }).observe(faixa);
   }
 
-  /* ---- Um só ouvinte de rolagem: barra do topo + faixa ---- */
-  var nav = $('nav'), ultimoY = window.scrollY, pedido = 0;
+  /* ---- Barra do topo ganha fundo ao rolar ---- */
+  var nav = $('nav'), pedido = 0;
   var aoRolar = function(){
     pedido = 0;
-    var y = window.scrollY, d = y - ultimoY; ultimoY = y;
-    if (nav) nav.classList.toggle('rolou', y > 40);
-    if (faixaRolagem) faixaRolagem(d);
+    if (nav) nav.classList.toggle('rolou', window.scrollY > 40);
   };
   window.addEventListener('scroll', function(){ if (!pedido) pedido = requestAnimationFrame(aoRolar); }, { passive: true });
   aoRolar();
