@@ -48,7 +48,7 @@ a{color:inherit}
 
 /* Fotos: preenchem a moldura e aparecem suavemente quando terminam de carregar */
 .foto-img{width:100%;height:100%;object-fit:cover;
-  transition:opacity .7s ease, clip-path 1.2s var(--cortina) var(--atraso,0ms), scale 1.6s var(--curva) var(--atraso,0ms), transform .8s var(--curva)}
+  transition:opacity .7s ease, scale 1.4s var(--curva) var(--atraso,0ms), transform .8s var(--curva)}
 .anim .foto-img:not(.carregou){opacity:0}
 
 /* Vidro */
@@ -235,6 +235,7 @@ section.bloco{position:relative;padding:120px 0}
 .anim .visor[open]{animation:aparecer .35s ease both}
 .visor img{max-width:min(92vw,1100px);max-height:76dvh;width:auto;height:auto;border-radius:22px;box-shadow:var(--sombra);object-fit:contain}
 .anim .visor img.troca{animation:trocar .5s var(--curva) both}
+.visor img.esperando{opacity:0}
 .visor .controle{position:absolute;width:50px;height:50px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--tinta);padding:0}
 .visor .controle svg{width:20px;height:20px}
 .visor-fechar{top:calc(18px + env(safe-area-inset-top,0px));right:18px}
@@ -290,37 +291,54 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
 }
 
 /* ================= Movimento =================
-   Tudo abaixo só vale com a classe .anim (o aparelho não pediu para reduzir movimento).
-   .mov entra quando o script de movimento está pronto, para nada ficar escondido se ele falhar. */
+   Só vale com a classe .anim (o aparelho não pediu para reduzir movimento).
+   Tudo anima apenas transform e opacity, que o celular processa direto na placa de vídeo, sem travar.
+   .abriu: a abertura do topo só começa quando a foto principal e as fontes estão prontas.
+   .mov: entra quando o script de movimento está pronto, para nada ficar escondido se ele falhar. */
 @keyframes subir{from{transform:translateY(135%)}}
 @keyframes surgir{from{opacity:0;transform:translateY(16px)}}
-@keyframes abrir{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
-@keyframes aproximar{from{scale:1.18}}
+@keyframes recolher{from{transform:scaleY(1)}to{transform:scaleY(0)}}
+@keyframes aproximar{from{scale:1.14}}
 @keyframes crescer{from{opacity:0;scale:.84}}
 @keyframes aparecer{from{opacity:0}}
 @keyframes trocar{from{opacity:0;scale:.97}}
 @keyframes flutuar{50%{transform:translateY(-8px)}}
+@keyframes reserva{to{opacity:1;transform:none}}
 
-/* 1. Abertura do topo: um único momento coreografado */
-.anim .hero h1:not(.dividido){animation:aparecer .6s ease 1.4s both}
-.anim .hero .palavra > span{animation:subir 1.1s var(--curva) both;animation-delay:calc(.12s + var(--i) * 90ms)}
-.anim .hero .status{animation:surgir .9s var(--curva) .05s both}
-.anim .hero .apoio{animation:surgir 1s var(--curva) .45s both}
-.anim .hero .acoes{animation:surgir 1s var(--curva) .58s both}
-.anim .hero .prova{animation:surgir 1s var(--curva) .7s both}
-.anim .arco{animation:abrir 1.3s var(--cortina) .15s backwards}
-.anim .arco .foto-img{animation:aproximar 1.8s var(--curva) .15s backwards}
-.anim .composicao::before{animation:aparecer 1.2s ease .8s both}
-.anim .circulo{animation:crescer 1s var(--curva) .75s both}
-.anim .selo{animation:surgir .9s var(--curva) 1.05s both, flutuar 6s ease-in-out 2s infinite}
+/* Cortina: uma camada da cor da moldura que se recolhe para cima e revela a foto */
+.arco::after,.cortina::after{content:"";position:absolute;inset:0;z-index:2;background:var(--superficie-2);transform-origin:top;transform:scaleY(0);pointer-events:none}
+
+/* 1. Abertura do topo: tudo escondido até a página estar pronta (com reserva de 3 s se algo falhar) */
+.anim:not(.abriu) .hero h1,
+.anim:not(.abriu) .hero .status,
+.anim:not(.abriu) .hero .apoio,
+.anim:not(.abriu) .hero .acoes,
+.anim:not(.abriu) .hero .prova,
+.anim:not(.abriu) .circulo,
+.anim:not(.abriu) .selo,
+.anim:not(.abriu) .composicao::before{opacity:0;animation:reserva .6s ease 3s forwards}
+.anim:not(.abriu) .arco::after{transform:scaleY(1);animation:recolher .8s var(--cortina) 3s forwards}
+
+.abriu .hero .palavra > span{animation:subir 1.1s var(--curva) both;animation-delay:calc(.15s + var(--i) * 90ms)}
+.abriu .hero .status{animation:surgir .9s var(--curva) both}
+.abriu .arco::after{animation:recolher 1.2s var(--cortina) .1s both}
+.abriu .arco .foto-img{animation:aproximar 1.6s var(--curva) .1s backwards}
+.abriu .hero .apoio{animation:surgir 1s var(--curva) .5s both}
+.abriu .hero .acoes{animation:surgir 1s var(--curva) .62s both}
+.abriu .hero .prova{animation:surgir 1s var(--curva) .74s both}
+.abriu .composicao::before{animation:aparecer 1.2s ease .8s both}
+.abriu .circulo{animation:crescer 1s var(--curva) .7s both}
+.abriu .selo{animation:surgir .9s var(--curva) 1s both, flutuar 6s ease-in-out 2s infinite}
 
 /* 2. Títulos de seção sobem de trás da máscara ao entrar na tela */
 .mov .revela-titulo .palavra > span{transform:translateY(135%);transition:transform 1s var(--curva);transition-delay:calc(var(--atraso,0ms) + var(--i) * 60ms)}
 .mov .revela-titulo.visto .palavra > span{transform:none}
 
-/* 3. Fotos abrem como cortina e se movem por dentro da moldura */
-.mov .cortina > .foto-img{clip-path:inset(100% 0 0 0);scale:1.14}
-.mov .cortina.visto > .foto-img{clip-path:inset(0 0 0 0);scale:1}
+/* 3. Fotos: a cortina se recolhe (só depois que a foto carregou) e a foto se acomoda */
+.mov .cortina::after{transform:scaleY(1);transition:transform 1.1s var(--cortina) var(--atraso,0ms)}
+.mov .cortina.visto::after{transform:scaleY(0)}
+.mov .cortina > .foto-img{scale:1.08}
+.mov .cortina.visto > .foto-img{scale:1}
 @supports (animation-timeline: view()){
   .anim .paralaxe > .foto-img{position:absolute;left:0;top:-8%;height:116%;animation:paralaxe linear both;animation-timeline:view()}
   @keyframes paralaxe{from{translate:0 -6%}to{translate:0 6%}}
@@ -466,7 +484,7 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
       <div class="lateral">
         <h2 class="titulo revela-titulo">Serviços <em>feitos com calma</em></h2>
         <p class="lead">Os valores variam conforme o comprimento e o volume do cabelo. Mande uma mensagem e receba o orçamento antes de agendar.</p>
-        <div class="foto cortina paralaxe" data-foto="2">
+        <div class="foto cortina" data-foto="2">
           <div class="legenda vidro">Atendimento com hora marcada, para você não esperar.</div>
         </div>
       </div>
@@ -492,7 +510,7 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
   <section class="bloco" id="avaliacoes" style="padding-top:40px">
     <div class="conteiner">
       <div class="reputacao">
-        <div class="fundo-foto paralaxe" data-foto="5"></div>
+        <div class="fundo-foto" data-foto="5"></div>
         <div class="cartao-nota vidro">
           <div class="num" data-campo="nota-fmt">4,9</div>
           <div class="estrelas" data-estrelas></div>
@@ -631,9 +649,18 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
   } else { esconder($('prova')); esconder($('selo')); esconder($('avaliacoes')); }
 
   // Fotos
-  var fotos = (d.fotos || []).filter(seguro).map(function(u){
-    return /images\.unsplash\.com/.test(u) && u.indexOf('?') === -1 ? u + '?auto=format&fit=crop&w=1400&q=70' : u;
-  });
+  var fotos = (d.fotos || []).filter(seguro);
+  // Fotos do Unsplash: pede cada uma já no tamanho da moldura (no máximo 2x a tela), em vez de uma foto grande para tudo
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var medida = function(n){ return Math.min(2400, Math.max(200, Math.ceil(n * dpr / 200) * 200)); };
+  var unsplash = function(u){ return /images\.unsplash\.com/.test(u) && u.indexOf('?') === -1; };
+  function tamanho(el, url){
+    if (!unsplash(url)) return url;
+    var r = el.getBoundingClientRect(), w = r.width, h = r.height;
+    if (!w || !h) return url + '?auto=format&fit=crop&w=1200&q=70';
+    if (el.classList.contains('paralaxe')) h *= 1.16;
+    return url + '?auto=format&fit=crop&w=' + medida(w) + '&h=' + medida(h) + '&q=70';
+  }
   var inicial = (d.nome || '?').replace(/^(studio|espaço|espaco|salão|salao|instituto|ateliê|atelie)\s+/i, '').charAt(0).toUpperCase();
   function arte(el, comInicial){
     el.innerHTML = '';
@@ -646,14 +673,19 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
   }
   function foto(el, url, comInicial){
     if (!el) return;
-    if (!url) { arte(el, comInicial); return; }
+    var pronta; el._pronta = new Promise(function(r){ pronta = r; });   // o movimento espera a foto estar pronta
+    if (!url) { arte(el, comInicial); pronta(); return; }
+    el.setAttribute('data-base', url);
     var noTopo = !!el.closest('.hero');
     var img = new Image(); img.alt = ''; img.className = 'foto-img'; img.decoding = 'async';
     img.loading = noTopo ? 'eager' : 'lazy';            // fotos do topo carregam primeiro
     if (noTopo) img.setAttribute('fetchpriority', 'high');
-    img.onload = function(){ img.classList.add('carregou'); };
-    img.onerror = function(){ arte(el, comInicial); };
-    img.src = url; el.insertBefore(img, el.firstChild);
+    img.onload = function(){
+      var mostrar = function(){ img.classList.add('carregou'); pronta(); };
+      if (img.decode) img.decode().then(mostrar, mostrar); else mostrar();   // decodifica antes de animar
+    };
+    img.onerror = function(){ arte(el, comInicial); pronta(); };
+    img.src = tamanho(el, url); el.insertBefore(img, el.firstChild);
   }
   document.querySelectorAll('[data-foto]').forEach(function(el){
     foto(el, fotos[Number(el.getAttribute('data-foto'))], el.hasAttribute('data-inicial'));
@@ -662,11 +694,12 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
   var av = $('avatares');
   if (av) [6, 7, 8].forEach(function(i){
     if (!fotos[i]) return;
-    var s = document.createElement('span'); s.style.backgroundImage = 'url("' + fotos[i] + '")'; av.appendChild(s);
+    var u = unsplash(fotos[i]) ? fotos[i] + '?auto=format&fit=crop&w=' + medida(42) + '&h=' + medida(42) + '&q=60' : fotos[i];
+    var s = document.createElement('span'); s.style.backgroundImage = 'url("' + u + '")'; av.appendChild(s);
   });
   var gal = $('galeria');
   if (gal && fotos.length >= 12) {
-    for (var i = 6; i < 12; i++) { var f = document.createElement('figure'); f.className = 'cortina'; foto(f, fotos[i]); gal.appendChild(f); }
+    for (var i = 6; i < 12; i++) { var f = document.createElement('figure'); f.className = 'cortina'; gal.appendChild(f); foto(f, fotos[i]); }
   } else {
     esconder($('fotos'));
     document.querySelectorAll('a[href="#fotos"]').forEach(esconder);
@@ -787,6 +820,9 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
   var anim = html.classList.contains('anim');
   var $ = function(id){ return document.getElementById(id); };
   var temIO = 'IntersectionObserver' in window;
+  var temPromise = typeof Promise !== 'undefined';
+  // Espera algo ficar pronto, mas nunca mais que "ms" milissegundos
+  var esperar = function(p, ms){ return Promise.race([p, new Promise(function(r){ setTimeout(r, ms); })]); };
 
   // Divide um título em palavras, cada uma com sua "máscara"
   function dividir(el){
@@ -809,6 +845,20 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
       });
     })(el);
     el.classList.add('dividido');
+  }
+
+  /* ---- Abertura do topo: começa só quando a foto principal e as fontes estão prontas ---- */
+  if (anim) {
+    dividir(document.querySelector('.hero h1'));
+    var abrir = function(){
+      // dois quadros de espera garantem que a tela já foi desenhada antes de animar
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ html.classList.add('abriu'); }); });
+    };
+    if (temPromise) {
+      var arco = document.querySelector('.arco');
+      var limite = Math.max(400, 2200 - (window.performance ? performance.now() : 0));
+      esperar(Promise.all([arco && arco._pronta, document.fonts && document.fonts.ready]), limite).then(abrir, abrir);
+    } else abrir();
   }
 
   /* ---- Menu em tela cheia (celular) ---- */
@@ -852,13 +902,24 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
     if (visor && typeof visor.showModal === 'function') {
       var vImg = $('visor-img'), vConta = $('visor-conta'), idx = 0;
       var comFoto = function(){ return figs.filter(function(f){ return f.querySelector('img'); }); };
+      // No visor, a foto vem inteira e no tamanho da tela (na galeria ela está recortada para a moldura)
+      var grande = function(f){
+        var base = f.getAttribute('data-base') || f.querySelector('img').src;
+        if (!/images\.unsplash\.com/.test(base) || base.indexOf('?') > -1) return base;
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        var w = Math.min(2400, Math.ceil(Math.min(window.innerWidth * 0.92, 1100) * dpr / 200) * 200);
+        return base + '?auto=format&fit=max&w=' + w + '&q=75';
+      };
+      var mostrarFoto = function(){ vImg.classList.remove('esperando'); vImg.classList.remove('troca'); void vImg.offsetWidth; vImg.classList.add('troca'); };
       var ir = function(i){
         var lista = comFoto(); if (!lista.length) return;
         idx = (i + lista.length) % lista.length;
-        var im = lista[idx].querySelector('img');
-        vImg.src = im.currentSrc || im.src;
         vConta.textContent = (idx + 1) + ' de ' + lista.length;
-        vImg.classList.remove('troca'); void vImg.offsetWidth; vImg.classList.add('troca');
+        var nova = grande(lista[idx]);
+        if (vImg.src === nova && vImg.complete) { mostrarFoto(); return; }
+        vImg.classList.add('esperando');
+        vImg.onload = mostrarFoto; vImg.onerror = mostrarFoto;
+        vImg.src = nova;
       };
       var abrirVisor = function(f){
         var i = comFoto().indexOf(f); if (i < 0) return;
@@ -888,34 +949,44 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
     }
   }
 
-  /* ---- Faixa corrida que reage à rolagem ---- */
+  /* ---- Faixa corrida que reage à rolagem ----
+     O movimento roda na placa de vídeo (Web Animations); o script só muda a velocidade.
+     Assim a faixa continua lisa mesmo enquanto o celular carrega fotos durante a rolagem. */
   var faixa = document.querySelector('.faixa'), trilho = $('trilho'), faixaRolagem = null;
-  if (anim && temIO && faixa && trilho && trilho.children.length === 2) {
+  if (anim && temIO && faixa && trilho && trilho.children.length === 2 && trilho.animate) {
+    var BASE = 42;                                        // pixels por segundo com a página parada
+    var duracao = function(){ return Math.max(8000, trilho.children[0].getBoundingClientRect().width / BASE * 1000); };
+    var af = trilho.animate(
+      [{ transform: 'translate3d(0,0,0)' }, { transform: 'translate3d(-50%,0,0)' }],
+      { duration: duracao(), iterations: Infinity }
+    );
+    af.currentTime = af.effect.getTiming().duration * 500;  // folga para andar de trás para frente quando a pessoa sobe
     faixa.classList.add('js');
-    var x = 0, v = -42, sentido = -1, impulso = 0, meia = 0, visivel = false, rodando = false, tAnt = 0;
-    var medir = function(){ meia = trilho.children[0].getBoundingClientRect().width; };
-    medir();
-    window.addEventListener('resize', medir);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(medir);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){
+      var tempo = af.currentTime / af.effect.getTiming().duration;
+      var d = duracao(); af.effect.updateTiming({ duration: d }); af.currentTime = tempo * d;
+    });
+    var definir = function(r){ if (af.updatePlaybackRate) af.updatePlaybackRate(r); else af.playbackRate = r; };
+    var ritmo = 1, sentido = 1, impulso = 0, rodando = false, tAnt = 0, tEnvio = 0, visivel = false;
     var quadro = function(t){
-      if (!visivel) { rodando = false; tAnt = 0; return; }
       var dt = tAnt ? Math.min(0.05, (t - tAnt) / 1000) : 0; tAnt = t;
-      impulso *= Math.pow(0.04, dt);                     // o impulso da rolagem some em ~1 segundo
-      var alvo = sentido * (42 + impulso);               // 42 px/s parado; mais rápido ao rolar
-      v += (alvo - v) * Math.min(1, dt * 5);
-      x += v * dt;
-      if (meia) { while (x <= -meia) x += meia; while (x > 0) x -= meia; }
-      trilho.style.transform = 'translate3d(' + x.toFixed(2) + 'px,0,0)';
+      impulso *= Math.pow(0.04, dt);                      // o impulso da rolagem some em cerca de 1 segundo
+      var alvo = sentido * (1 + impulso / BASE);
+      ritmo += (alvo - ritmo) * Math.min(1, dt * 5);
+      if (impulso < 0.5 && Math.abs(alvo - ritmo) < 0.02) { definir(sentido); ritmo = sentido; rodando = false; tAnt = 0; return; }
+      if (t - tEnvio > 50) { definir(ritmo); tEnvio = t; }
       requestAnimationFrame(quadro);
     };
     new IntersectionObserver(function(e){
       visivel = e[0].isIntersecting;
-      if (visivel && !rodando) { rodando = true; requestAnimationFrame(quadro); }
+      if (visivel) af.play(); else af.pause();            // fora da tela, a faixa descansa
     }).observe(faixa);
     faixaRolagem = function(d){
       if (!d) return;
-      sentido = d > 0 ? -1 : 1;                           // descer: para a esquerda; subir: para a direita
+      sentido = d > 0 ? 1 : -1;                           // descer: para a esquerda; subir: para a direita
+      if (!visivel) return;
       impulso = Math.min(360, impulso + Math.abs(d) * 3);
+      if (!rodando) { rodando = true; requestAnimationFrame(quadro); }
     };
   }
 
@@ -930,12 +1001,7 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
   window.addEventListener('scroll', function(){ if (!pedido) pedido = requestAnimationFrame(aoRolar); }, { passive: true });
   aoRolar();
 
-  if (!anim) return;
-
-  /* ---- Abertura do topo ---- */
-  dividir(document.querySelector('.hero h1'));
-
-  if (!temIO) return;
+  if (!anim || !temIO || !temPromise) return;
 
   /* ---- Revelações ao rolar: títulos, fotos e nota ---- */
   document.querySelectorAll('.revela-titulo').forEach(dividir);
@@ -955,6 +1021,10 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
       if (p < 1) requestAnimationFrame(passo);
     });
   };
+  var revelar = function(el){
+    el.classList.add('visto');
+    if (el.classList.contains('reputacao')) contarNota();
+  };
 
   html.classList.add('mov');
   var io = new IntersectionObserver(function(entradas){
@@ -963,9 +1033,10 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
       if (!e.isIntersecting) return;
       var el = e.target;
       el.style.setProperty('--atraso', (k++ * 90) + 'ms');   // o que entra junto, entra em sequência
-      el.classList.add('visto');
       io.unobserve(el);
-      if (el.classList.contains('reputacao')) contarNota();
+      // a cortina só abre com a foto já carregada, para revelar a foto e não um espaço vazio
+      if (el._pronta) esperar(el._pronta, 1500).then(function(){ revelar(el); });
+      else revelar(el);
     });
   }, { rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
   document.querySelectorAll('.revela-titulo, .cortina, .reputacao').forEach(function(el){ io.observe(el); });
