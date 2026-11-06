@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Studio Bella | Salão de beleza no Jardim dos Estados, Poços de Caldas</title>
-<meta name="description" content="Corte, cor e cuidado com hora marcada. Agende pelo WhatsApp com o Studio Bella, no Jardim dos Estados.">
+<title>Studio Bella | Salão de beleza no Centro de Poços de Caldas</title>
+<meta name="description" content="Corte, cor e cuidado com hora marcada. Agende pelo WhatsApp com o Studio Bella, no Centro de Poços de Caldas.">
 <meta property="og:title" content="Studio Bella | Salão de beleza">
 <meta property="og:description" content="Corte, cor e cuidado com hora marcada. Agende pelo WhatsApp.">
 <meta property="og:image" content="https://images.unsplash.com/photo-1695527081848-1e46c06e6458?auto=format&fit=crop&w=1200&h=630&q=70">
@@ -362,14 +362,16 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
 {
   "nome": "Studio Bella",
   "nicho": "Salão de beleza",
-  "bairro": "Jardim dos Estados",
+  "demonstracao": true,
+  "bairro": "Centro",
   "cidade": "Poços de Caldas",
-  "endereco": "R. Paraná, 418 - Jardim dos Estados, Poços de Caldas - MG, 37701-012",
-  "telefone": "(35) 99814-2376",
-  "whatsapp": "https://wa.me/5535998142376",
+  "endereco": "Praça Dr. Pedro Sanches - Centro, Poços de Caldas - MG, 37701-002",
+  "telefone": "(35) 99758-2992",
+  "whatsapp": "https://wa.me/5535997582992",
+  "mensagem_whatsapp": "Olá! Vi o site de demonstração da Marquise Digital e quero saber mais.",
   "nota": 4.9,
   "avaliacoes": 187,
-  "maps_url": "https://www.google.com/maps/search/?api=1&query=Studio+Bella+Po%C3%A7os+de+Caldas",
+  "maps_url": "https://www.google.com/maps/search/?api=1&query=Pra%C3%A7a+Dr.+Pedro+Sanches+Po%C3%A7os+de+Caldas",
   "instagram": "https://www.instagram.com/",
   "cor": "rose",
   "horarios": [
@@ -536,7 +538,7 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
       <div class="visite">
         <div class="painel">
           <h3>Endereço</h3>
-          <address id="endereco">R. Paraná, 418 - Jardim dos Estados, Poços de Caldas - MG</address>
+          <address id="endereco">Praça Dr. Pedro Sanches - Centro, Poços de Caldas - MG</address>
           <h3 id="titulo-horarios">Horários</h3>
           <p class="status simples" data-status hidden><i class="ponto" aria-hidden="true"></i><span class="s1"></span><span class="s2"></span></p>
           <ul class="horarios" id="horarios"></ul>
@@ -628,9 +630,12 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
   if (d.apoio) texto($('apoio'), d.apoio);
   texto($('assinatura'), 'Equipe ' + d.nome);
 
-  // Links
+  // Links. "mensagem_whatsapp" (opcional) deixa uma mensagem pronta em todos os botões de WhatsApp
+  var zap = seguro(d.whatsapp);
+  var comTexto = function(t){ return zap + (zap.indexOf('?') > -1 ? '&' : '?') + 'text=' + encodeURIComponent(t); };
   ['whatsapp', 'maps_url', 'instagram'].forEach(function(k){
     var u = seguro(d[k]);
+    if (k === 'whatsapp' && u && d.mensagem_whatsapp) u = comTexto(d.mensagem_whatsapp);
     document.querySelectorAll('[data-link="' + k + '"]').forEach(function(a){ if (u) a.href = u; else esconder(a); });
   });
   if (!seguro(d.whatsapp)) esconder(document.querySelector('.barra-zap'));
@@ -720,8 +725,7 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
       var item = document.createElement('div'); item.className = 'item';
       var h = document.createElement('h3'); h.textContent = s.nome;
       var a = document.createElement('a'); a.textContent = 'Consultar valor'; a.target = '_blank'; a.rel = 'noopener';
-      var zap = seguro(d.whatsapp);
-      if (zap) a.href = zap + '?text=' + encodeURIComponent('Olá! Gostaria de saber o valor de ' + s.nome.toLowerCase() + '.'); else esconder(a);
+      if (zap) a.href = comTexto(d.mensagem_whatsapp || ('Olá! Gostaria de saber o valor de ' + s.nome.toLowerCase() + '.')); else esconder(a);
       var p = document.createElement('p'); p.textContent = s.desc || '';
       item.appendChild(h); item.appendChild(a); item.appendChild(p); lista.appendChild(item);
     });
@@ -737,7 +741,7 @@ footer{padding:72px 0 130px;color:var(--suave);font-size:15px}
   var mapa = $('mapa');
   if (mapa && d.endereco) {
     var fr = document.createElement('iframe');
-    fr.src = 'https://maps.google.com/maps?q=' + encodeURIComponent(d.nome + ', ' + d.endereco) + '&output=embed';
+    fr.src = 'https://maps.google.com/maps?q=' + encodeURIComponent(d.demonstracao ? d.endereco : d.nome + ', ' + d.endereco) + '&output=embed';
     fr.loading = 'lazy'; fr.title = 'Mapa com a localização de ' + d.nome; fr.referrerPolicy = 'no-referrer-when-downgrade';
     mapa.appendChild(fr);
   }
