@@ -18,12 +18,13 @@
      Campos: nome, nicho, cor, bairro, cidade, endereco, telefone, whatsapp, nota, avaliacoes, maps_url,
      instagram, horarios, servicos, fotos (12: 0 topo, 2 "A clínica", 6 a 11 galeria).
      Opcionais: apoio, frase, sobre, textos (troca textos marcados com data-texto), responsavel_tecnico,
-     demonstracao e mensagem_whatsapp (só na demonstração). Cores deste modelo: "petroleo" (padrão) ou "azul". -->
+     demonstracao e mensagem_whatsapp (só na demonstração).
+     Variação deste modelo: "variacao": 1 (Petróleo), 2 (Azul sereno) ou 3 (Branco e grafite). -->
 <script id="dados" type="application/json">
 {
   "nome": "Odonto Serena",
   "nicho": "Odontologia",
-  "cor": "petroleo",
+  "variacao": 1,
   "demonstracao": true,
   "bairro": "Centro",
   "cidade": "Poços de Caldas",
@@ -92,15 +93,29 @@
 (function(){
   var h = document.documentElement;
   if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) h.classList.add('anim');
-  try { var d = JSON.parse(document.getElementById('dados').textContent); if (d.cor) h.setAttribute('data-cor', d.cor); } catch(e) {}
+  var d = {};
+  try { d = JSON.parse(document.getElementById('dados').textContent); } catch(e) {}
+  /* Variações do modelo (exclusividade por nicho e cidade): 1 Petróleo, 2 Azul sereno, 3 Branco e grafite */
+  var VARIACOES = {
+    1: { fontes: 'family=Plus+Jakarta+Sans:wght@500;600;700&family=Manrope:wght@400;500;600', barra: '#F6F7F5' },
+    2: { fontes: 'family=Sora:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600', barra: '#F3F6F9' },
+    3: { fontes: 'family=Outfit:wght@400;500;600&family=Figtree:wght@400;500;600', barra: '#FAFAF9' }
+  };
+  var v = String(d.variacao || 1);
+  // Só na demonstração: ?variacao=2 no link mostra outra variação, para apresentar as três com um único arquivo
+  if (d.demonstracao) { var m = /[?&]variacao=([123])\b/.exec(location.search); if (m) v = m[1]; }
+  if (!VARIACOES[v]) v = '1';
+  h.setAttribute('data-variacao', v);
+  var barra = document.querySelector('meta[name="theme-color"]');
+  if (barra) barra.setAttribute('content', VARIACOES[v].barra);
+  document.write('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?' + VARIACOES[v].fontes + '&display=swap">');
 })();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ================= Modelo odontologia: "clínica clara" =================
-   Cores por cliente: data-cor="petroleo" (padrão) ou "azul". Vidro só em detalhes: barra ao rolar, selo da nota e cartão do mapa. */
+   Variação 1 (Petróleo) nos valores de :root. Vidro só em detalhes: barra ao rolar, selo da nota e cartão do mapa. */
 :root{
   --fundo:#F6F7F5; --cartao:#FFFFFF; --tinta:#14302C; --suave:#55625F; --linha:#E2E7E4; --linha-2:#EEF1EF;
   --destaque:#1F6F66; --destaque-escuro:#174F49; --destaque-claro:#DCEFEA; --bloco:#E8F2EF; --escuro:#14302C;
@@ -110,9 +125,9 @@
   --sombra: 0 24px 60px -30px rgba(20,48,44,.38);
   --curva: cubic-bezier(.16,1,.3,1);
   --cortina: cubic-bezier(.77,0,.18,1);
+  --raio-botao: 14px; --raio-botao-p: 12px;
   color-scheme: light;
 }
-html[data-cor="azul"]{ --tinta:#16304A; --destaque:#2A5F87; --destaque-escuro:#20496A; --destaque-claro:#DFE9F3; --bloco:#EBF1F7; --escuro:#16304A; --foto:#D8E2EC; --areia:#F2E8DD; }
 
 *{box-sizing:border-box}
 [hidden]{display:none !important}
@@ -137,7 +152,7 @@ h1,h2,h3{font-family:var(--titulo);margin:0;letter-spacing:-.03em}
   border:1px solid rgba(255,255,255,.9);box-shadow:inset 0 1px 0 rgba(255,255,255,.8), var(--sombra)}
 
 /* Botões */
-.botao{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 22px;border-radius:14px;border:0;text-decoration:none;font:600 15px/1 var(--texto);cursor:pointer;transition:transform .2s var(--curva), background .2s ease, box-shadow .2s ease}
+.botao{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 22px;border-radius:var(--raio-botao);border:0;text-decoration:none;font:600 15px/1 var(--texto);cursor:pointer;transition:transform .2s var(--curva), background .2s ease, box-shadow .2s ease}
 .botao svg{width:18px;height:18px;flex:none}
 .botao:active{transform:translateY(1px) scale(.985)}
 .botao.cheio{background:var(--destaque);color:#fff;box-shadow:0 12px 26px -14px color-mix(in srgb,var(--destaque) 80%, transparent)}
@@ -146,7 +161,7 @@ h1,h2,h3{font-family:var(--titulo);margin:0;letter-spacing:-.03em}
 .botao.claro:hover{transform:translateY(-1px)}
 .botao.contorno{background:transparent;color:var(--tinta);border:1px solid var(--linha)}
 .botao.contorno:hover{background:var(--cartao)}
-.botao.pequeno{min-height:44px;padding:0 18px;font-size:14px;border-radius:12px}
+.botao.pequeno{min-height:44px;padding:0 18px;font-size:14px;border-radius:var(--raio-botao-p)}
 .seta{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14.5px;color:var(--destaque);text-decoration:none}
 .seta svg{width:16px;height:16px;transition:transform .25s var(--curva)}
 .seta:hover svg{transform:translateX(3px)}
@@ -214,6 +229,73 @@ html.menu-aberto .menu nav a,html.menu-aberto .menu-rodape{opacity:1;transform:n
   .hero-foto{aspect-ratio:5/4}
   .selo{left:14px;bottom:14px;padding:11px 14px}
   .selo .num{font-size:24px}
+}
+
+/* ================= Variação 2: Azul sereno =================
+   Azul com toque de pêssego. Topo: foto inteira com o texto num painel de vidro. Botões em pílula. */
+html[data-variacao="2"]{
+  --fundo:#F3F6F9; --tinta:#16304A; --suave:#56677A; --linha:#DFE6EE; --linha-2:#EBF0F5;
+  --destaque:#2A5F87; --destaque-escuro:#20496A; --destaque-claro:#DFE9F3; --bloco:#E8EFF6; --escuro:#16304A;
+  --areia:#F3C9B3; --foto:#D3DEE8;
+  --titulo:"Sora", "Avenir Next", "Segoe UI", sans-serif;
+  --texto:"DM Sans", "Segoe UI", system-ui, sans-serif;
+  --sombra: 0 24px 60px -30px rgba(22,48,74,.38);
+  --raio-botao: 999px; --raio-botao-p: 999px;
+}
+html[data-variacao="2"] h1, html[data-variacao="2"] h2, html[data-variacao="2"] h3{font-weight:600}
+html[data-variacao="2"] .nav{background:rgba(243,246,249,.62);-webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%);border-bottom-color:rgba(255,255,255,.6)}
+html[data-variacao="2"] .hero{padding:0;min-height:min(880px,100svh);display:flex}
+html[data-variacao="2"] .hero::before{display:none}
+html[data-variacao="2"] .hero .grade{position:static;display:flex;align-items:flex-end;padding:140px 0 48px}
+html[data-variacao="2"] .foto-quadro{position:absolute;inset:0}
+html[data-variacao="2"] .hero-foto{aspect-ratio:auto;height:100%;border-radius:0;box-shadow:none}
+html[data-variacao="2"] .hero-foto::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg, rgba(22,48,74,.10), transparent 30%, transparent 55%, rgba(22,48,74,.22));pointer-events:none}
+html[data-variacao="2"] .texto-topo{position:relative;z-index:2;max-width:620px;padding:40px;border-radius:30px;
+  background:rgba(255,255,255,.74);-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);
+  border:1px solid rgba(255,255,255,.9);box-shadow:inset 0 1px 0 rgba(255,255,255,.8), var(--sombra)}
+html[data-variacao="2"] .hero h1{font-size:clamp(34px,4.4vw,58px);max-width:16ch}
+html[data-variacao="2"] .hero .apoio{margin-bottom:28px}
+html[data-variacao="2"] .selo{left:auto;right:max(20px, calc((100vw - 1180px) / 2));bottom:48px;z-index:3}
+html[data-variacao="2"].anim:not(.abriu) .texto-topo{opacity:0;animation:reserva .6s ease 3s forwards}
+html[data-variacao="2"].abriu .texto-topo{animation:surgir 1s var(--curva) .3s both}
+@media (max-width:900px){
+  html[data-variacao="2"] .hero{min-height:100svh}
+  html[data-variacao="2"] .hero .grade{padding:110px 0 calc(96px + env(safe-area-inset-bottom,0px))}
+  html[data-variacao="2"] .texto-topo{padding:24px 22px;border-radius:24px}
+  html[data-variacao="2"] .hero h1{font-size:clamp(30px,8.4vw,40px)}
+  html[data-variacao="2"] .hero .apoio{font-size:15.5px;margin-bottom:22px}
+  html[data-variacao="2"] .selo{top:calc(86px + env(safe-area-inset-top,0px));bottom:auto;right:16px}
+}
+
+/* ================= Variação 3: Branco e grafite =================
+   Neutra, sem cor de destaque (só o verde do "aberto agora"). Topo panorâmico: título em cima, foto larga embaixo. */
+html[data-variacao="3"]{
+  --fundo:#FAFAF9; --tinta:#24272B; --suave:#5E6368; --linha:#E6E7E8; --linha-2:#EFEFF0;
+  --destaque:#24272B; --destaque-escuro:#17191C; --destaque-claro:#EEEFF0; --bloco:#F1F1F0; --escuro:#24272B;
+  --areia:#ECECEA; --foto:#E2E3E4;
+  --titulo:"Outfit", "Avenir Next", "Segoe UI", sans-serif;
+  --texto:"Figtree", "Segoe UI", system-ui, sans-serif;
+  --sombra: 0 24px 60px -30px rgba(36,39,43,.32);
+}
+html[data-variacao="3"] h1, html[data-variacao="3"] h2, html[data-variacao="3"] h3{font-weight:600}
+html[data-variacao="3"] .rotulo{color:var(--suave)}
+html[data-variacao="3"] .hero::before{background:radial-gradient(closest-side, #ECECEA, transparent)}
+html[data-variacao="3"] .hero .grade{grid-template-columns:1fr;gap:48px}
+html[data-variacao="3"] .texto-topo{display:grid;grid-template-columns:1.25fr .75fr;column-gap:64px;grid-template-areas:"rotulo rotulo" "titulo apoio" "titulo acoes"}
+html[data-variacao="3"] .hero .rotulo{grid-area:rotulo}
+html[data-variacao="3"] .hero h1{grid-area:titulo;align-self:end;margin:0;max-width:14ch;font-size:clamp(38px,5.6vw,76px);letter-spacing:-.045em}
+html[data-variacao="3"] .hero .apoio{grid-area:apoio;align-self:end;margin-bottom:24px}
+html[data-variacao="3"] .hero .acoes{grid-area:acoes;align-self:end}
+html[data-variacao="3"] .hero-foto{aspect-ratio:21/9}
+html[data-variacao="3"] .selo{left:auto;right:24px;bottom:24px}
+html[data-variacao="3"] .reputacao::after{background:radial-gradient(closest-side, rgba(255,255,255,.12), transparent)}
+html[data-variacao="3"] .trat .icone{background:var(--fundo);border:1px solid var(--linha)}
+@media (max-width:900px){
+  html[data-variacao="3"] .hero .grade{gap:32px}
+  html[data-variacao="3"] .texto-topo{display:block}
+  html[data-variacao="3"] .hero h1{margin-bottom:20px;font-size:clamp(36px,10vw,46px)}
+  html[data-variacao="3"] .hero-foto{aspect-ratio:4/3}
+  html[data-variacao="3"] .selo{right:14px;bottom:14px}
 }
 
 /* Faixa de confiança + "Primeira vez?" */
@@ -479,7 +561,7 @@ footer{padding:80px 0 130px;color:var(--suave);font-size:15px}
 <main>
   <section class="hero">
     <div class="conteiner grade">
-      <div>
+      <div class="texto-topo">
         <span class="rotulo" id="rotulo-topo">Odontologia</span>
         <h1 data-texto="titulo_topo">Cuidado com o seu sorriso, com calma e precisão.</h1>
         <p class="apoio" id="apoio" data-texto="apoio">Cada etapa é explicada antes de começar. Consultas com hora marcada, para você não esperar.</p>
