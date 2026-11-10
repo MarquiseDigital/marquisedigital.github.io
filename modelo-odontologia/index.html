@@ -532,6 +532,130 @@ footer{padding:80px 0 130px;color:var(--suave);font-size:15px}
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
   html{scroll-behavior:auto}
 }
+
+/* ================= Blocos do meio por variação =================
+   Variação 1 (Petróleo): os estilos acima. Variação 2 (Azul sereno): macia e arredondada.
+   Variação 3 (Branco e grafite): sóbria e editorial, com fios finos e números. */
+
+/* ----- Variação 2: tratamentos em linhas brancas, com botão redondo de seta ----- */
+html[data-variacao="2"] .lista-trat{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+html[data-variacao="2"] .trat{display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"icone titulo botao" "icone texto botao";align-items:center;column-gap:16px;row-gap:2px;padding:16px 16px 16px 16px;border:0;border-radius:24px}
+html[data-variacao="2"] .trat .icone{grid-area:icone;border-radius:999px}
+html[data-variacao="2"] .trat h3{grid-area:titulo;margin:0;font-size:17px}
+html[data-variacao="2"] .trat p{grid-area:texto;font-size:14px}
+html[data-variacao="2"] .trat .seta{grid-area:botao;margin:0;padding:0;width:44px;height:44px;border-radius:999px;justify-content:center;background:var(--destaque);color:#fff;font-size:0}
+html[data-variacao="2"] .trat .seta svg{width:18px;height:18px}
+html[data-variacao="2"] .trat .seta:hover{background:var(--destaque-escuro)}
+html[data-variacao="2"] .trat .seta:hover svg{transform:none}
+@media (max-width:900px){
+  html[data-variacao="2"] .lista-trat{grid-template-columns:1fr;gap:10px}
+  html[data-variacao="2"] .trat{padding:14px;border-radius:20px;column-gap:14px}
+  html[data-variacao="2"] .trat h3{font-size:15.5px}
+  html[data-variacao="2"] .trat p{font-size:13px}
+}
+/* ----- Variação 2: primeira consulta em cartões (de arrastar no celular) ----- */
+html[data-variacao="2"] .consulta{background:none;padding:0;border-radius:0}
+html[data-variacao="2"] .passos{display:flex;gap:14px;margin-top:28px}
+html[data-variacao="2"] .passo{flex:1 1 0;flex-direction:column;gap:10px;padding:26px;border-radius:26px;background:#fff}
+html[data-variacao="2"] .passo:first-child{background:var(--destaque);color:#fff}
+html[data-variacao="2"] .passo:first-child p{color:rgba(255,255,255,.85)}
+html[data-variacao="2"] .passo::after{display:none}
+html[data-variacao="2"] .passo .n{display:block;width:auto;height:auto;background:none;color:inherit;box-shadow:none;font:500 13px/1 var(--titulo);opacity:.75;place-items:start}
+html[data-variacao="2"] .passo .n::before{content:"0"}
+html[data-variacao="2"] .passo h3{margin-top:4px}
+@media (max-width:900px){
+  html[data-variacao="2"] .passos{overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:20px;scrollbar-width:none;margin:22px -20px 0;padding:0 20px 4px;gap:10px}
+  html[data-variacao="2"] .passos::-webkit-scrollbar{display:none}
+  html[data-variacao="2"] .passo{flex:0 0 74%;flex-direction:column;align-items:flex-start;gap:8px;padding:22px;scroll-snap-align:start}
+  html[data-variacao="2"] .passo h3{margin-top:2px}
+}
+/* ----- Variação 2: "A clínica" com foto grande e o responsável técnico em vidro sobre ela ----- */
+html[data-variacao="2"] .clinica{--foto-h:540px;position:relative;grid-template-columns:1fr;gap:36px}
+html[data-variacao="2"] .clinica-foto{order:-1;aspect-ratio:auto;height:var(--foto-h);border-radius:30px}
+html[data-variacao="2"] .clinica > div:first-child{max-width:760px}
+html[data-variacao="2"] .rt{position:absolute;z-index:3;left:20px;top:calc(var(--foto-h) - 20px);transform:translateY(-100%);margin:0;max-width:420px;
+  background:rgba(255,255,255,.76);-webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%);border:1px solid rgba(255,255,255,.9);box-shadow:var(--sombra)}
+html[data-variacao="2"].clinica-sem-foto .rt{position:static;transform:none;margin-top:28px;background:#fff;border-color:var(--linha);box-shadow:none}
+@media (max-width:900px){
+  html[data-variacao="2"] .clinica{--foto-h:380px;gap:28px}
+  html[data-variacao="2"] .rt{left:12px;right:12px;top:calc(var(--foto-h) - 12px)}
+}
+/* ----- Variação 2: galeria em grade, com o 4º quadro abrindo todas as fotos ----- */
+html[data-variacao="2"] .galeria{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:auto}
+html[data-variacao="2"] .galeria figure:nth-child(n){grid-column:auto;grid-row:auto;aspect-ratio:1;border-radius:26px}
+html[data-variacao="2"] .galeria figure:nth-child(n+5){display:none}
+html[data-variacao="2"] .galeria figure:nth-child(4):not(:last-child)::before{content:"Ver todas as fotos";position:absolute;inset:0;z-index:3;display:grid;place-items:center;
+  background:color-mix(in srgb, var(--destaque-claro) 82%, transparent);color:var(--tinta);font:600 15px/1 var(--texto)}
+html[data-variacao="2"] .galeria-conta{display:none !important}
+@media (max-width:760px){
+  html[data-variacao="2"] .galeria{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:36px 0 0;padding:0;overflow:visible}
+  html[data-variacao="2"] .galeria figure:nth-child(n){flex:none;aspect-ratio:1;border-radius:22px;scroll-snap-align:none}
+  html[data-variacao="2"] .galeria figure:nth-child(n+5){display:none}
+}
+/* ----- Variação 2: avaliações em blocos (nota no pêssego, frase em branco, botão azul) ----- */
+html[data-variacao="2"] .reputacao{grid-template-columns:.9fr 1.1fr;grid-template-areas:"nota frase" "nota botao";gap:14px;padding:0;background:none;color:var(--tinta);border-radius:0;overflow:visible}
+html[data-variacao="2"] .reputacao::after{display:none}
+html[data-variacao="2"] .reputacao > div:first-child{grid-area:nota;display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:36px;border-radius:30px;background:var(--areia)}
+html[data-variacao="2"] .reputacao > div:nth-child(2){grid-area:frase;padding:32px;border-radius:30px;background:#fff}
+html[data-variacao="2"] .reputacao .estrelas{color:var(--tinta)}
+html[data-variacao="2"] .reputacao p{color:var(--suave)}
+html[data-variacao="2"] .reputacao .botao{grid-area:botao;justify-self:stretch;justify-content:space-between;min-height:76px;padding:0 30px;border-radius:30px;background:var(--destaque);color:#fff;border:0;-webkit-backdrop-filter:none;backdrop-filter:none}
+html[data-variacao="2"] .reputacao .botao:hover{background:var(--destaque-escuro)}
+html[data-variacao="2"] .reputacao .botao::after{content:"→";font-size:18px}
+@media (max-width:900px){
+  html[data-variacao="2"] .reputacao{grid-template-columns:1fr;grid-template-areas:"nota" "frase" "botao";gap:10px}
+  html[data-variacao="2"] .reputacao > div:first-child{padding:26px 24px;border-radius:24px}
+  html[data-variacao="2"] .reputacao > div:nth-child(2){padding:24px;border-radius:24px}
+  html[data-variacao="2"] .reputacao .botao{min-height:60px;border-radius:24px;padding:0 24px}
+}
+
+/* ----- Variação 3: tratamentos numerados entre fios finos ----- */
+html[data-variacao="3"] .lista-trat{counter-reset:trat;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:48px;row-gap:0;border-bottom:1px solid var(--linha)}
+html[data-variacao="3"] .trat{counter-increment:trat;display:grid;grid-template-columns:48px 1fr;column-gap:12px;row-gap:6px;padding:24px 0;border:0;border-top:1px solid var(--linha);border-radius:0;background:none}
+html[data-variacao="3"] .trat:hover{transform:none;box-shadow:none}
+html[data-variacao="3"] .trat::before{content:counter(trat, decimal-leading-zero);grid-column:1;grid-row:1;font:500 15px/1.6 var(--titulo);color:var(--suave)}
+html[data-variacao="3"] .trat .icone{display:none}
+html[data-variacao="3"] .trat h3,html[data-variacao="3"] .trat p,html[data-variacao="3"] .trat .seta{grid-column:2}
+html[data-variacao="3"] .trat h3{grid-row:1;margin:0;font-weight:500;font-size:21px}
+html[data-variacao="3"] .trat .seta{color:var(--tinta);justify-self:start}
+@media (max-width:900px){
+  html[data-variacao="3"] .lista-trat{grid-template-columns:1fr}
+  html[data-variacao="3"] .trat{grid-template-columns:40px 1fr;padding:20px 0}
+  html[data-variacao="3"] .trat h3{font-size:19px}
+}
+/* ----- Variação 3: primeira consulta com números grandes, sem fundo ----- */
+html[data-variacao="3"] .consulta{background:none;padding:0;border-radius:0}
+html[data-variacao="3"] .passos{gap:40px;border-top:1px solid var(--tinta);padding-top:32px}
+html[data-variacao="3"] .passo::after{display:none}
+html[data-variacao="3"] .passo .n{width:auto;height:auto;background:none;color:var(--tinta);box-shadow:none;place-items:start;font:500 76px/.85 var(--titulo);letter-spacing:-.04em}
+@media (max-width:900px){
+  html[data-variacao="3"] .passos{gap:0;padding-top:0;border-top:0}
+  html[data-variacao="3"] .passo{display:grid;grid-template-columns:64px 1fr;gap:14px;padding:22px 0;border-top:1px solid var(--linha)}
+  html[data-variacao="3"] .passo .n{font-size:56px}
+  html[data-variacao="3"] .passo h3{margin-top:2px}
+}
+/* ----- Variação 3: "A clínica" com foto vertical ao lado e responsável técnico numa linha com fio ----- */
+html[data-variacao="3"] .clinica{grid-template-columns:.85fr 1.15fr}
+html[data-variacao="3"] .clinica-foto{order:-1;aspect-ratio:3/4;border-radius:18px}
+html[data-variacao="3"] .rt{display:block;max-width:none;margin-top:32px;padding:16px 0 0;border:0;border-top:1px solid var(--tinta);border-radius:0;background:none}
+html[data-variacao="3"] .rt .mono{display:none}
+html[data-variacao="3"] .rt small{color:var(--suave)}
+@media (max-width:900px){ html[data-variacao="3"] .clinica{grid-template-columns:1fr} html[data-variacao="3"] .clinica-foto{aspect-ratio:4/5;width:78%} }
+/* ----- Variação 3: galeria de fotos panorâmicas de arrastar ----- */
+html[data-variacao="3"] .galeria{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding-bottom:4px}
+html[data-variacao="3"] .galeria::-webkit-scrollbar{display:none}
+html[data-variacao="3"] .galeria figure:nth-child(n){flex:0 0 min(560px,80%);aspect-ratio:16/9;border-radius:14px;scroll-snap-align:start;grid-column:auto;grid-row:auto}
+html[data-variacao="3"] .galeria-conta{display:block}
+@media (max-width:760px){ html[data-variacao="3"] .galeria figure:nth-child(n){flex:0 0 82%;aspect-ratio:16/10} }
+/* ----- Variação 3: avaliações em uma linha, entre fios ----- */
+html[data-variacao="3"] .reputacao{padding:36px 0;border-radius:0;background:none;color:var(--tinta);border-top:1px solid var(--tinta);border-bottom:1px solid var(--tinta);overflow:visible}
+html[data-variacao="3"] .reputacao::after{display:none}
+html[data-variacao="3"] .reputacao .num{font-weight:500;font-size:clamp(72px,8vw,104px)}
+html[data-variacao="3"] .reputacao .estrelas{color:var(--tinta)}
+html[data-variacao="3"] .reputacao p{color:var(--suave)}
+html[data-variacao="3"] .reputacao .botao{background:transparent;color:var(--tinta);border:1px solid var(--linha);-webkit-backdrop-filter:none;backdrop-filter:none}
+html[data-variacao="3"] .reputacao .botao:hover{background:var(--cartao)}
+@media (max-width:900px){ html[data-variacao="3"] .reputacao{padding:28px 0;border-radius:0} }
 </style>
 </head>
 <body>
