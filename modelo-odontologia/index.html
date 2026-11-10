@@ -103,7 +103,11 @@
   };
   var v = String(d.variacao || 1);
   // Só na demonstração: ?variacao=2 no link mostra outra variação, para apresentar as três com um único arquivo
-  if (d.demonstracao) { var m = /[?&]variacao=([123])\b/.exec(location.search); if (m) v = m[1]; }
+  if (d.demonstracao) {
+    // Aceita "variacao=2", "variação=2" e "variacao 2" (com ou sem acento, com ou sem "=")
+    var q = location.search; try { q = decodeURIComponent(q.replace(/\+/g, ' ')); } catch(e) {}
+    var m = /varia[cç][aã]o\s*=?\s*([123])/i.exec(q); if (m) v = m[1];
+  }
   if (!VARIACOES[v]) v = '1';
   h.setAttribute('data-variacao', v);
   var barra = document.querySelector('meta[name="theme-color"]');
@@ -363,6 +367,14 @@ section.bloco{position:relative;padding:104px 0 0}
 
 /* A clínica */
 .clinica{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+/* ===== NÚCLEO (regra): lugares sem foto somem; blocos se reorganizam ===== */
+[data-vazia]{display:none !important}
+html.clinica-sem-foto .clinica{grid-template-columns:1fr}
+html.clinica-sem-foto .clinica > div:first-child{max-width:760px}
+@media (min-width:761px){
+  html.galeria-curta .galeria{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));grid-auto-rows:260px}
+  html.galeria-curta .galeria figure:nth-child(n){grid-column:auto;grid-row:auto}
+}
 .clinica blockquote{margin:22px 0 18px;font:600 clamp(22px,2.3vw,28px)/1.3 var(--titulo);letter-spacing:-.025em}
 .clinica p.texto{color:var(--suave);max-width:50ch;margin:0}
 .rt{display:flex;align-items:center;gap:16px;margin-top:32px;padding:16px 20px 16px 16px;border-radius:20px;background:var(--cartao);border:1px solid var(--linha);max-width:460px}
@@ -790,6 +802,9 @@ footer{padding:80px 0 130px;color:var(--suave);font-size:15px}
 
   // Fotos do Unsplash: pede cada uma no tamanho da moldura (no máximo 2x a tela)
   var fotos = (d.fotos || []).filter(seguro);
+  // Só na demonstração: ?fotos=0 (ou 3, 5...) simula um cliente com poucas fotos
+  if (d.demonstracao) { var mf = /[?&]fotos=(\d+)/.exec(location.search); if (mf) fotos = fotos.slice(0, +mf[1]); }
+  var variacao = document.documentElement.getAttribute('data-variacao') || '1';
   var dpr = Math.min(window.devicePixelRatio || 1, 2);
   var medida = function(n){ return Math.min(2400, Math.max(200, Math.ceil(n * dpr / 200) * 200)); };
   var unsplash = function(u){ return /images\.unsplash\.com/.test(u) && u.indexOf('?') === -1; };
@@ -826,12 +841,29 @@ footer{padding:80px 0 130px;color:var(--suave);font-size:15px}
     img.onerror = function(){ arte(el, comInicial); pronta(); };
     img.src = tamanho(el, url); el.insertBefore(img, el.firstChild);
   }
+  /* ===== NÚCLEO (regra): o site se adapta à quantidade de fotos =====
+     0 fotos: arte com o nome e cores; 1 a 5: as fotos vão para os lugares mais importantes e o resto some;
+     6 ou mais: site completo. A galeria usa as fotos que sobraram e só aparece com 3 ou mais. */
+  var LUGARES = [0, 2];          // lugares de foto deste modelo: topo e "a clínica" (o mesmo nas 3 variações)
+  var PRIORIDADE = [0, 2];       // ordem de preenchimento com poucas fotos
+  var N = fotos.length, porLugar = {}, usada = {};
+  document.documentElement.setAttribute('data-fotos', N === 0 ? 'sem' : N < 6 ? 'poucas' : 'todas');
+  if (N >= 6) LUGARES.forEach(function(l){ porLugar[l] = fotos[l]; usada[l] = true; });
+  else PRIORIDADE.forEach(function(l, k){ if (k < N) { porLugar[l] = fotos[k]; usada[k] = true; } });
   document.querySelectorAll('[data-foto]').forEach(function(el){
-    foto(el, fotos[Number(el.getAttribute('data-foto'))], el.hasAttribute('data-inicial'));
+    var l = Number(el.getAttribute('data-foto')), url = porLugar[l], comInicial = el.hasAttribute('data-inicial');
+    if (!url && !comInicial) { el.setAttribute('data-vazia', ''); el._pronta = Promise.resolve(); return; }
+    foto(el, url, comInicial && variacao !== '2');   // na variação 2 o painel de vidro fica sobre a arte, sem a letra
   });
+  if (!porLugar[2]) document.documentElement.classList.add('clinica-sem-foto');
   var gal = $('galeria');
-  if (gal && fotos.length >= 12) {
-    for (var i = 6; i < 12; i++) { var f = document.createElement('figure'); f.className = 'cortina'; gal.appendChild(f); foto(f, fotos[i]); }
+  var sobra = [];
+  fotos.forEach(function(u, i){ if (!usada[i]) sobra.push(i); });
+  sobra.sort(function(a, b){ return (a < 6) - (b < 6) || a - b; });        // a galeria prefere as fotos 6 a 11
+  sobra = sobra.slice(0, 6);
+  if (gal && sobra.length >= 3) {
+    if (sobra.length < 6) document.documentElement.classList.add('galeria-curta');
+    sobra.forEach(function(i){ var f = document.createElement('figure'); f.className = 'cortina'; gal.appendChild(f); foto(f, fotos[i]); });
   } else esconder($('fotos'));
 
   // Tratamentos: ícone escolhido pelo nome do serviço
