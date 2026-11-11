@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- O gerador troca o título e as quatro linhas de descrição e prévia (og) abaixo.
+     São elas que o WhatsApp mostra no cartão do link, antes de a página abrir. -->
+<title>Auto Center | Oficina mecânica</title>
+<meta name="description" content="Diagnóstico honesto e orçamento aprovado por você antes de qualquer serviço. Peça seu orçamento pelo WhatsApp com a Auto Center.">
+<meta property="og:title" content="Auto Center | Oficina mecânica">
+<meta property="og:description" content="Orçamento aprovado por você antes de qualquer serviço. Fale pelo WhatsApp.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=1200&h=630&q=70">
+<meta property="og:type" content="website">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1E2226">
+
+<!-- DADOS DO CLIENTE: o gerador do Radar substitui este bloco (mesmo formato em todos os modelos).
+     Campos: nome, nicho, variacao, bairro, cidade, endereco, telefone, whatsapp, nota, avaliacoes, maps_url,
+     instagram, horarios, servicos, fotos (12: 0 topo, 2 "a oficina", 3 segunda foto da oficina na variação 3, 6 a 11 galeria).
+     Opcionais: apoio, frase, sobre, textos (troca textos marcados com data-texto), responsavel_tecnico,
+     demonstracao e mensagem_whatsapp (só na demonstração).
+     Variação deste modelo: "variacao": 1 (Amarelo), 2 (Azul) ou 3 (Vermelho). -->
+<script id="dados" type="application/json">
+{
+  "nome": "Auto Center",
+  "nicho": "Oficina mecânica",
+  "variacao": 1,
+  "demonstracao": true,
+  "bairro": "Centro",
+  "cidade": "Poços de Caldas",
+  "endereco": "Praça Dr. Pedro Sanches - Centro, Poços de Caldas - MG, 37701-002",
+  "telefone": "(35) 99758-2992",
+  "whatsapp": "https://wa.me/5535997582992",
+  "mensagem_whatsapp": "Olá! Vi o site de demonstração da Marquise Digital e quero saber mais.",
+  "nota": 4.8,
+  "avaliacoes": 212,
+  "maps_url": "https://www.google.com/maps/search/?api=1&query=Pra%C3%A7a+Dr.+Pedro+Sanches+Po%C3%A7os+de+Caldas",
+  "instagram": "https://www.instagram.com/",
+  "horarios": [
+    "segunda-feira: 08:00 – 18:00",
+    "terça-feira: 08:00 – 18:00",
+    "quarta-feira: 08:00 – 18:00",
+    "quinta-feira: 08:00 – 18:00",
+    "sexta-feira: 08:00 – 18:00",
+    "sábado: 08:00 – 12:00",
+    "domingo: Fechado"
+  ],
+  "servicos": [
+    {
+      "nome": "Revisão e troca de óleo",
+      "desc": "Óleo, filtros e checagem geral do carro."
+    },
+    {
+      "nome": "Freios",
+      "desc": "Pastilhas, discos e fluido, com teste antes da entrega."
+    },
+    {
+      "nome": "Suspensão",
+      "desc": "Amortecedores, buchas e aqueles barulhos que incomodam."
+    },
+    {
+      "nome": "Injeção eletrônica",
+      "desc": "Diagnóstico por scanner e limpeza de bicos."
+    },
+    {
+      "nome": "Ar-condicionado",
+      "desc": "Carga de gás, higienização e troca de filtro."
+    },
+    {
+      "nome": "Alinhamento e balanceamento",
+      "desc": "Direção firme e pneus que duram mais."
+    }
+  ],
+  "fotos": [
+    "https://images.unsplash.com/photo-1625047509248-ec889cbff17f",
+    "https://images.unsplash.com/photo-1429772011165-0c2e054367b8",
+    "https://images.unsplash.com/photo-1727893119356-1702fe921cf9",
+    "https://images.unsplash.com/photo-1727893304219-063d142ce6f3",
+    "https://images.unsplash.com/photo-1599256872237-5dcc0fbe9668",
+    "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7",
+    "https://images.unsplash.com/photo-1615906655593-ad0386982a0f",
+    "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e",
+    "https://images.unsplash.com/photo-1643700973089-baa86a1ab9ee",
+    "https://images.unsplash.com/photo-1625047509168-a7026f36de04",
+    "https://images.unsplash.com/photo-1767681092416-bccf9410bda4",
+    "https://images.unsplash.com/photo-1504222490345-c075b6008014"
+  ]
+}
+</script>
+
+<script>/* ===== NÚCLEO (regra): movimento só para quem não pediu "reduzir movimento"; variação de cor antes de desenhar ===== */
+(function(){
+  var h = document.documentElement;
+  if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) h.classList.add('anim');
+  var d = {};
+  try { d = JSON.parse(document.getElementById('dados').textContent); } catch(e) {}
+  /* Variações do modelo (exclusividade por nicho e cidade): 1 Amarelo, 2 Azul, 3 Vermelho */
+  var VARIACOES = {
+    1: { fontes: 'family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600', barra: '#1E2226' },
+    2: { fontes: 'family=Saira+Condensed:wght@600;700&family=Saira:wght@400;500;600', barra: '#1747C9' },
+    3: { fontes: 'family=Big+Shoulders+Display:wght@700;800&family=Work+Sans:wght@400;500;600', barra: '#F6F3F1' }
+  };
+  var v = String(d.variacao || 1);
+  // Só na demonstração: ?variacao=2 no link mostra outra variação, para apresentar as três com um único arquivo
+  if (d.demonstracao) {
+    // Aceita "variacao=2", "variação=2" e "variacao 2" (com ou sem acento, com ou sem "=")
+    var q = location.search; try { q = decodeURIComponent(q.replace(/\+/g, ' ')); } catch(e) {}
+    var m = /varia[cç][aã]o\s*=?\s*([123])/i.exec(q); if (m) v = m[1];
+  }
+  if (!VARIACOES[v]) v = '1';
+  h.setAttribute('data-variacao', v);
+  var barra = document.querySelector('meta[name="theme-color"]');
+  if (barra) barra.setAttribute('content', VARIACOES[v].barra);
+  document.write('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?' + VARIACOES[v].fontes + '&display=swap">');
+})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<style>
+/* ================= Modelo oficina mecânica: "oficina de confiança" =================
+   Variação 1 (Amarelo) nos valores de :root. Variações 2 (Azul) e 3 (Vermelho) no fim. Cantos retos em todas. */
+:root{
+  --fundo:#F3F2EE; --cartao:#FFFFFF; --tinta:#1E2226; --suave:#5A5F66; --linha:#DDDBD4;
+  --marca:#F2B705; --sobre-marca:#1E2226; --marca-escura:#D9A300; --claro:#FBF0C9; --foto:#D9D7D0; --aberto:#1A7F4B;
+  --barra-fundo:#1E2226; --barra-cor:#FFFFFF;
+  --titulo:"Barlow Condensed", "Arial Narrow", "Segoe UI", sans-serif;
+  --texto:"Barlow", "Segoe UI", system-ui, sans-serif;
+  --sombra: 0 24px 60px -30px rgba(30,34,38,.4);
+  --curva: cubic-bezier(.16,1,.3,1);
+  --cortina: cubic-bezier(.77,0,.18,1);
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+[hidden],[data-vazia]{display:none !important}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+html.menu-aberto,html.visor-aberto{overflow:hidden}
+body{margin:0;background:var(--fundo);color:var(--tinta);font:400 16.5px/1.6 var(--texto);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--titulo);margin:0;font-weight:700;text-transform:uppercase;letter-spacing:.005em}
+:focus-visible{outline:3px solid var(--marca);outline-offset:3px}
+.conteiner{width:min(1180px,100% - 36px);margin-inline:auto}
+.rotulo{display:inline-block;font:600 13px/1.2 var(--texto);letter-spacing:.12em;text-transform:uppercase;color:var(--suave)}
+.titulo{font-size:clamp(38px,5vw,64px);line-height:.92}
+.lead{color:var(--suave);max-width:46ch;margin:0}
+
+/* ===== NÚCLEO (referência): fotos aparecem suavemente quando terminam de carregar ===== */
+.foto-img{width:100%;height:100%;object-fit:cover;transition:opacity .7s ease, scale 1.4s var(--curva) var(--atraso,0ms), transform .8s var(--curva)}
+.anim .foto-img:not(.carregou){opacity:0}
+/* ===== NÚCLEO (referência): vidro ===== */
+.vidro{background:rgba(255,255,255,.8);-webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%);border:1px solid rgba(255,255,255,.92);box-shadow:var(--sombra)}
+
+/* Botões */
+.botao{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:0 24px;border:0;text-decoration:none;font:700 19px/1 var(--titulo);text-transform:uppercase;letter-spacing:.02em;cursor:pointer;transition:transform .2s var(--curva), background .2s ease}
+.botao svg{width:18px;height:18px;flex:none}
+.botao:active{transform:translateY(1px) scale(.985)}
+.botao.cheio{background:var(--marca);color:var(--sobre-marca)}
+.botao.cheio:hover{background:var(--marca-escura);transform:translateY(-1px)}
+.botao.claro{background:#fff;color:var(--tinta)}
+.botao.contorno{background:transparent;color:inherit;border:2px solid currentColor}
+.botao.pequeno{min-height:44px;padding:0 16px;font-size:16px}
+.seta{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:15px;text-decoration:none}
+.seta svg{width:16px;height:16px;transition:transform .25s var(--curva)}
+.seta:hover svg{transform:translateX(3px)}
+
+/* Barra do topo */
+.nav{position:fixed;top:0;left:0;right:0;z-index:20;padding-top:env(safe-area-inset-top,0px);background:var(--barra-fundo);color:var(--barra-cor)}
+.nav .barra{display:flex;align-items:center;justify-content:space-between;gap:20px;height:64px}
+.marca{font:700 23px/1 var(--titulo);text-transform:uppercase;letter-spacing:.02em;text-decoration:none}
+.nav .links{display:flex;gap:26px}
+.nav .links a{text-decoration:none;font-size:15px;opacity:.8;transition:opacity .2s}
+.nav .links a:hover{opacity:1}
+.nav .direita{display:flex;align-items:center;gap:8px}
+.menu-botao{display:none;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid currentColor;background:transparent;color:inherit;cursor:pointer;padding:0;opacity:.85}
+.menu-icone{position:relative;width:18px;height:10px}
+.menu-icone i{position:absolute;left:0;right:0;height:2px;background:currentColor;transition:transform .45s var(--curva)}
+.menu-icone i:first-child{top:0}
+.menu-icone i:last-child{bottom:0}
+html.menu-aberto .menu-icone i:first-child{transform:translateY(4px) rotate(45deg)}
+html.menu-aberto .menu-icone i:last-child{transform:translateY(-4px) rotate(-45deg)}
+@media (max-width:900px){ .nav .links{display:none} .menu-botao{display:inline-flex} .nav .direita .botao{display:none} }
+
+/* ===== NÚCLEO (referência): menu em tela cheia no celular ===== */
+.menu{position:fixed;inset:0;z-index:19;display:flex;flex-direction:column;justify-content:space-between;gap:32px;
+  padding:calc(100px + env(safe-area-inset-top,0px)) 22px calc(28px + env(safe-area-inset-bottom,0px));
+  background:color-mix(in srgb, var(--fundo) 94%, transparent);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);
+  opacity:0;visibility:hidden;transition:opacity .45s var(--curva), visibility 0s linear .45s}
+html.menu-aberto .menu{opacity:1;visibility:visible;transition:opacity .45s var(--curva)}
+.menu nav{display:flex;flex-direction:column}
+.menu nav a{padding:12px 0;border-bottom:2px solid var(--tinta);text-decoration:none;font:700 clamp(32px,9vw,44px)/1.05 var(--titulo);text-transform:uppercase}
+.menu nav a,.menu-rodape{opacity:0;transform:translateY(16px);transition:opacity .4s ease, transform .5s var(--curva)}
+html.menu-aberto .menu nav a,html.menu-aberto .menu-rodape{opacity:1;transform:none;transition-duration:.6s,.8s;transition-delay:calc(.08s + var(--i)*60ms)}
+.menu-rodape{display:grid;gap:14px}
+@media (min-width:901px){.menu{display:none}}
+
+/* ===== NÚCLEO (regra): aviso de aberto ou fechado ===== */
+.status{display:inline-flex;align-items:center;gap:8px;margin:0}
+.status .s2{opacity:.75}
+.status .ponto{position:relative;width:8px;height:8px;border-radius:50%;background:currentColor;flex:none;opacity:.5}
+.status.aberto .ponto{background:var(--aberto);opacity:1}
+.anim .status.aberto .ponto::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--aberto);animation:pulsar 2.6s ease-out infinite}
+@keyframes pulsar{from{opacity:.55;transform:scale(1)}to{opacity:0;transform:scale(2.8)}}
+
+/* ================= TOPO (variação 1: foto, faixa amarela e frase grande) ================= */
+.hero{position:relative;padding-top:64px}
+.hero-grade{display:flex;flex-direction:column}
+.hero-foto{position:relative;overflow:hidden;background:var(--foto);width:100vw;margin-left:calc(50% - 50vw);height:clamp(300px,54vh,580px)}
+.faixa-orcamento{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100vw;margin-left:calc(50% - 50vw);padding:18px max(18px, calc((100vw - 1180px) / 2));background:var(--marca);color:var(--sobre-marca);text-decoration:none;font:700 clamp(20px,2.4vw,28px)/1 var(--titulo);text-transform:uppercase;transition:background .2s ease}
+.faixa-orcamento:hover{background:var(--marca-escura)}
+.faixa-orcamento svg{width:24px;height:24px;transition:transform .25s var(--curva)}
+.faixa-orcamento:hover svg{transform:translateX(4px)}
+.hero-texto{display:grid;grid-template-columns:1.15fr .85fr;column-gap:56px;align-items:end;padding:36px 0 0}
+.hero-meta{grid-column:1 / -1;margin:0 0 16px;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--suave)}
+.hero .etiqueta{display:none}
+.hero h1{grid-column:1;grid-row:2 / span 2;font-size:clamp(52px,7.6vw,112px);line-height:.88;margin:0}
+.h1-pre,.h1-nome{display:none}
+.hero .apoio{grid-column:2;grid-row:2;font-size:17px;color:var(--suave);margin:0 0 18px;max-width:42ch}
+.sinais{grid-column:2;grid-row:3;display:flex;flex-wrap:wrap;gap:8px 18px;margin:0;font-weight:600;font-size:15px}
+.sinais b{font-weight:700}
+.botao-topo{display:none}
+.ficha{display:none}
+@media (max-width:900px){
+  .hero-texto{display:flex;flex-direction:column;align-items:flex-start;padding-top:26px}
+  .hero h1{font-size:clamp(48px,14vw,64px);margin-bottom:16px}
+  .hero .apoio{font-size:16px}
+}
+
+/* ================= Serviços ================= */
+section.bloco{position:relative;padding:100px 0 0}
+@media (max-width:900px){ section.bloco{padding-top:70px} }
+.cab{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:34px}
+.lista-proc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.proc{position:relative;display:flex;flex-direction:column;gap:12px;padding:22px;background:var(--cartao);border:1px solid var(--linha);text-decoration:none;transition:transform .25s var(--curva), border-color .25s ease}
+.proc:hover{transform:translateY(-3px);border-color:var(--tinta)}
+.proc .num{width:44px;height:44px;display:grid;place-items:center;background:var(--marca);color:var(--sobre-marca);font:700 18px/1 var(--titulo)}
+.proc .corpo{display:flex;flex-direction:column;gap:6px}
+.proc h3{font-size:23px;line-height:1;overflow-wrap:break-word}
+.proc p{margin:0;font-size:14.5px;line-height:1.45;color:var(--suave)}
+.proc .ir{display:none}
+@media (max-width:900px){
+  .cab{margin-bottom:24px}
+  .lista-proc{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .proc{padding:16px;gap:10px}
+  .proc .num{width:38px;height:38px;font-size:16px}
+  .proc h3{font-size:19px}
+  .proc p{font-size:13px}
+}
+
+/* ================= Como funciona ================= */
+.passos{list-style:none;margin:36px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+.passo{display:grid;grid-template-columns:70px 1fr;column-gap:14px;row-gap:6px;padding-top:20px;border-top:3px solid var(--tinta)}
+.passo .n{grid-row:1 / span 2;font:700 72px/.85 var(--titulo);color:var(--marca);-webkit-text-stroke:2px var(--tinta)}
+.passo h3{font-size:24px;line-height:1}
+.passo p{margin:0;color:var(--suave);font-size:15px}
+@media (max-width:900px){
+  .passos{grid-template-columns:1fr;gap:0;margin-top:26px;border-bottom:3px solid var(--tinta)}
+  .passo{padding:18px 0;grid-template-columns:60px 1fr}
+  .passo .n{font-size:58px}
+  .passo h3{font-size:22px}
+}
+
+/* ================= A oficina ================= */
+.clinica{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.clinica-fotos{display:grid;gap:10px}
+.clinica-foto{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--foto)}
+.clinica-texto p.texto{color:var(--suave);max-width:50ch;margin:18px 0 0;font-size:17px}
+.rt{display:flex;align-items:center;gap:14px;margin-top:28px;padding-top:16px;border-top:2px solid var(--tinta);max-width:440px}
+.rt .mono{display:none}
+.rt small{display:block;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--suave)}
+.rt b{display:block;font-weight:600;font-size:16px;margin-top:2px}
+html.clinica-sem-foto .clinica-fotos{display:none}
+html.clinica-sem-foto .clinica{grid-template-columns:1fr}
+@media (max-width:900px){ .clinica{grid-template-columns:1fr;gap:28px} }
+
+/* Galeria: faixa de arrastar (variação 1) */
+.galeria{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;margin-top:48px;padding-bottom:4px}
+.galeria::-webkit-scrollbar{display:none}
+.galeria figure{position:relative;flex:0 0 clamp(240px,28vw,360px);aspect-ratio:4/3;margin:0;overflow:hidden;background:var(--foto);cursor:zoom-in;scroll-snap-align:start}
+.galeria figure:hover .foto-img{transform:scale(1.04)}
+.galeria-conta{margin:14px 0 0;font-size:14px;color:var(--suave)}
+.galeria-conta b{font-weight:700;color:var(--tinta)}
+@media (max-width:760px){
+  .galeria{margin:36px -18px 0;padding:0 0 4px 18px;scroll-padding-inline:18px}
+  .galeria::after{content:"";flex:0 0 10px}
+  .galeria figure{flex:0 0 72%}
+}
+
+/* ================= Avaliações: faixa na cor da marca ================= */
+.reputacao{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;width:100vw;margin-left:calc(50% - 50vw);padding:56px max(18px, calc((100vw - 1180px) / 2));background:var(--marca);color:var(--sobre-marca)}
+.reputacao .num{font:700 clamp(104px,13vw,170px)/.78 var(--titulo);font-variant-numeric:tabular-nums}
+.reputacao .rep-texto{flex:1;min-width:220px}
+.reputacao .estrelas{display:inline-flex;gap:3px;margin-bottom:10px}
+.reputacao .estrelas svg{width:16px;height:16px}
+.reputacao h2{font-size:clamp(26px,3vw,38px);line-height:.95}
+.reputacao p{margin:8px 0 0;opacity:.85}
+@media (max-width:900px){ .reputacao{padding:38px 18px;gap:16px} }
+
+/* ================= Como chegar ================= */
+.mapa-bloco{position:relative;margin-top:40px;overflow:hidden;background:var(--foto);min-height:640px}
+.mapa-bloco .mapa,.mapa-bloco iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.mapa-bloco iframe{filter:saturate(.5) contrast(.95)}
+.cartao-mapa{position:absolute;left:24px;top:24px;z-index:1;width:min(400px,100% - 48px);padding:26px;display:flex;flex-direction:column;gap:14px}
+.cartao-mapa h3{font-size:28px;line-height:1}
+.cartao-mapa address{font-style:normal;color:var(--suave);font-size:15.5px}
+.horarios{list-style:none;margin:0;padding:0;font-size:15px}
+.horarios li{display:flex;justify-content:space-between;gap:16px;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.08)}
+.horarios li span:last-child{color:var(--suave);text-align:right}
+.horarios li.hoje{font-weight:600}
+.horarios li.hoje span:last-child{color:var(--tinta)}
+.horarios li.hoje span:first-child::after{content:"hoje";margin-left:8px;font-size:11.5px;font-weight:700;padding:3px 8px;background:var(--marca);color:var(--sobre-marca)}
+.cartao-mapa .acoes{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding-top:6px}
+@media (max-width:900px){
+  .mapa-bloco{min-height:0;background:none;overflow:visible;margin-top:28px}
+  .mapa-bloco .mapa{position:relative;inset:auto;height:290px;overflow:hidden;background:var(--foto)}
+  .cartao-mapa{position:relative;left:auto;top:auto;width:auto;margin:-56px 10px 0;padding:20px}
+}
+
+/* Chamada final */
+.final{display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap;padding:52px;background:var(--tinta);color:#fff}
+.final h2{font-size:clamp(34px,4vw,54px);line-height:.92;max-width:16ch}
+.final p{margin:12px 0 0;color:rgba(255,255,255,.8);max-width:44ch}
+@media (max-width:900px){ .final{padding:32px 22px} }
+
+/* Rodapé */
+footer{padding:76px 0 130px;color:var(--suave);font-size:15px}
+.rodape{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;padding-top:36px;border-top:3px solid var(--tinta)}
+.rodape .marca{display:block;color:var(--tinta);margin-bottom:8px}
+.rodape .profissao{display:block;color:var(--tinta);font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+.rodape h4{font:700 18px/1 var(--titulo);text-transform:uppercase;color:var(--tinta);margin:0 0 12px}
+.rodape a{text-decoration:none;display:block;margin-bottom:6px}
+.rodape a:hover{color:var(--tinta)}
+.responsavel{margin:40px 0 0;font-size:13px}
+.responsavel:not([hidden]) + .credito{margin-top:6px}
+.credito{margin-top:40px;font-size:13px}
+.credito a{text-decoration:underline;text-underline-offset:3px}
+@media (max-width:760px){.rodape{grid-template-columns:1fr;gap:26px}}
+
+/* ===== NÚCLEO (referência): barra de WhatsApp fixa no celular ===== */
+.barra-zap{display:none}
+@media (max-width:900px){
+  .barra-zap{display:block;position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:20;padding:6px;transition:opacity .3s ease}
+  .barra-zap .botao{width:100%}
+  html.menu-aberto .barra-zap{opacity:0;pointer-events:none}
+}
+
+/* ===== NÚCLEO (referência): visor de fotos em tela cheia ===== */
+.visor{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;overflow:hidden;color:var(--tinta);
+  background:color-mix(in srgb, var(--fundo) 94%, transparent);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+.visor::backdrop{background:transparent}
+.visor[open]{display:grid;place-items:center}
+.anim .visor[open]{animation:aparecer .35s ease both}
+.visor img{max-width:min(92vw,1100px);max-height:76dvh;width:auto;height:auto;box-shadow:var(--sombra);object-fit:contain}
+.anim .visor img.troca{animation:trocar .5s var(--curva) both}
+.visor img.esperando{opacity:0}
+.visor .controle{position:absolute;width:50px;height:50px;display:grid;place-items:center;cursor:pointer;color:var(--tinta);padding:0}
+.visor .controle svg{width:20px;height:20px}
+.visor-fechar{top:calc(18px + env(safe-area-inset-top,0px));right:18px}
+.visor-ant{left:22px;top:50%;margin-top:-25px}
+.visor-prox{right:22px;top:50%;margin-top:-25px}
+.visor-conta{position:absolute;left:50%;bottom:calc(30px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);font-size:14px;color:var(--suave);margin:0}
+@media (max-width:760px){
+  .visor-ant,.visor-prox{top:auto;margin-top:0;bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+  .visor-ant{left:24px}.visor-prox{right:24px}
+}
+
+/* ===== NÚCLEO (referência): linguagem de movimento ===== */
+@keyframes subir{from{transform:translateY(120%)}}
+@keyframes surgir{from{opacity:0;transform:translateY(16px)}}
+@keyframes recolher{from{transform:scaleY(1)}to{transform:scaleY(0)}}
+@keyframes aproximar{from{scale:1.12}}
+@keyframes aparecer{from{opacity:0}}
+@keyframes trocar{from{opacity:0;scale:.97}}
+@keyframes reserva{to{opacity:1;transform:none}}
+@keyframes faixa{from{transform:scaleX(0)}}
+.palavra{display:inline-block;overflow:hidden;vertical-align:top;padding:.12em .06em .14em;margin:-.12em -.06em -.14em}
+.palavra > span{display:inline-block}
+.hero-foto::after,.cortina::after{content:"";position:absolute;inset:0;z-index:2;background:var(--foto);transform-origin:top;transform:scaleY(0);pointer-events:none}
+.anim:not(.abriu) .hero-meta,.anim:not(.abriu) .hero .etiqueta,.anim:not(.abriu) .hero h1,.anim:not(.abriu) .hero .apoio,
+.anim:not(.abriu) .sinais,.anim:not(.abriu) .botao-topo,.anim:not(.abriu) .ficha{opacity:0;animation:reserva .6s ease 3s forwards}
+.anim:not(.abriu) .hero-foto::after{transform:scaleY(1);animation:recolher .8s var(--cortina) 3s forwards}
+.abriu .hero-foto::after{animation:recolher 1.1s var(--cortina) .1s both}
+.abriu .hero-foto .foto-img{animation:aproximar 1.6s var(--curva) .1s backwards}
+.abriu .faixa-orcamento{transform-origin:left;animation:faixa .9s var(--cortina) .35s both}
+.abriu .hero-meta,.abriu .hero .etiqueta{animation:surgir .8s var(--curva) .3s both}
+.abriu .hero h1 .palavra > span{animation:subir .9s var(--curva) both;animation-delay:calc(.4s + var(--i) * 60ms)}
+.abriu .hero .apoio{animation:surgir 1s var(--curva) .6s both}
+.abriu .sinais{animation:surgir 1s var(--curva) .7s both}
+.abriu .botao-topo{animation:surgir 1s var(--curva) .72s both}
+.abriu .ficha{animation:surgir 1s var(--curva) .65s both}
+.mov .revela-titulo .palavra > span{transform:translateY(120%);transition:transform .9s var(--curva);transition-delay:calc(var(--atraso,0ms) + var(--i) * 55ms)}
+.mov .revela-titulo.visto .palavra > span{transform:none}
+.mov .cortina::after{transform:scaleY(1);transition:transform 1.1s var(--cortina) var(--atraso,0ms)}
+.mov .cortina.visto::after{transform:scaleY(0)}
+.mov .cortina > .foto-img{scale:1.08}
+.mov .cortina.visto > .foto-img{scale:1}
+.mov .reputacao .estrelas svg{opacity:.25;scale:.5;transition:opacity .5s ease, scale .7s cubic-bezier(.34,1.56,.64,1);transition-delay:calc(.35s + var(--i) * 110ms)}
+.mov .reputacao.visto .estrelas svg{opacity:1;scale:1}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+}
+
+/* ================= Variação 2: Azul =================
+   Bloco azul no topo com o nome gigante em branco e foto larga embaixo; serviços em lista com quadrado azul e seta;
+   "como funciona" em cartões (a etapa do orçamento em azul); oficina com foto larga; galeria em grade; avaliações em bloco azul. */
+html[data-variacao="2"]{
+  --fundo:#F1F4F8; --tinta:#0E1B2C; --suave:#4F5D70; --linha:#D9E0EA;
+  --marca:#1747C9; --sobre-marca:#FFFFFF; --marca-escura:#1238A0; --claro:#DCE6F7; --foto:#D3DBE6;
+  --barra-fundo:#1747C9; --barra-cor:#FFFFFF;
+  --titulo:"Saira Condensed", "Arial Narrow", "Segoe UI", sans-serif;
+  --texto:"Saira", "Segoe UI", system-ui, sans-serif;
+  --sombra: 0 24px 60px -30px rgba(14,27,44,.4);
+}
+html[data-variacao="2"] .nav{border-bottom:1px solid rgba(255,255,255,.18)}
+html[data-variacao="2"] .nav .direita .botao{background:#fff;color:var(--tinta)}
+html[data-variacao="2"] .hero{background:var(--marca);color:#fff}
+html[data-variacao="2"] .faixa-orcamento,html[data-variacao="2"] .hero-meta,html[data-variacao="2"] .sinais,html[data-variacao="2"] .h1-slogan{display:none}
+html[data-variacao="2"] .h1-nome{display:inline}
+html[data-variacao="2"] .hero-texto{order:-1;display:flex;flex-direction:column;align-items:flex-start;padding:44px 0 48px;max-width:960px}
+html[data-variacao="2"] .hero .etiqueta{display:inline-flex;margin-bottom:22px;padding:7px 14px;background:#fff;color:var(--marca);font-size:14px;font-weight:600}
+html[data-variacao="2"] .hero h1{font-size:clamp(64px,10vw,150px);line-height:.84;margin:0 0 22px}
+html[data-variacao="2"] .hero .apoio{color:rgba(255,255,255,.88);max-width:46ch;margin:0 0 28px}
+html[data-variacao="2"] .botao-topo{display:inline-flex;background:#fff;color:var(--tinta)}
+html[data-variacao="2"] .botao-topo:hover{background:var(--claro)}
+html[data-variacao="2"] .hero-foto{height:clamp(260px,48vh,540px)}
+@media (max-width:900px){
+  html[data-variacao="2"] .hero-texto{padding:32px 0 34px}
+  html[data-variacao="2"] .hero h1{font-size:clamp(58px,17vw,80px)}
+  html[data-variacao="2"] .botao-topo{align-self:stretch;justify-content:space-between}
+}
+html[data-variacao="2"] .lista-proc{grid-template-columns:1fr 1fr;column-gap:40px;row-gap:0;border-bottom:1px solid var(--linha)}
+html[data-variacao="2"] .proc{flex-direction:row;align-items:center;gap:16px;padding:18px 0;background:none;border:0;border-top:1px solid var(--linha)}
+html[data-variacao="2"] .proc:hover{transform:none;border-color:var(--linha)}
+html[data-variacao="2"] .proc .num{flex:none;color:#fff}
+html[data-variacao="2"] .proc .corpo{flex:1;gap:2px}
+html[data-variacao="2"] .proc .ir{display:block;flex:none;color:var(--marca)}
+html[data-variacao="2"] .proc .ir span{display:none}
+html[data-variacao="2"] .proc .ir svg{width:22px;height:22px;transition:transform .25s var(--curva)}
+html[data-variacao="2"] .proc:hover .ir svg{transform:translateX(4px)}
+@media (max-width:900px){ html[data-variacao="2"] .lista-proc{grid-template-columns:1fr} }
+html[data-variacao="2"] .passos{display:flex;gap:12px}
+html[data-variacao="2"] .passo{flex:1 1 0;display:flex;flex-direction:column;gap:10px;padding:26px;background:var(--cartao);border:1px solid var(--linha)}
+html[data-variacao="2"] .passo:nth-child(2){background:var(--marca);border-color:var(--marca);color:#fff}
+html[data-variacao="2"] .passo:nth-child(2) p{color:rgba(255,255,255,.85)}
+html[data-variacao="2"] .passo .n{font:700 15px/1 var(--titulo);letter-spacing:.12em;color:inherit;-webkit-text-stroke:0}
+html[data-variacao="2"] .passo .n::before{content:"Etapa "}
+@media (max-width:900px){
+  html[data-variacao="2"] .passos{overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-padding-inline:18px;margin:24px -18px 0;padding:0 18px 4px;border-bottom:0}
+  html[data-variacao="2"] .passos::-webkit-scrollbar{display:none}
+  html[data-variacao="2"] .passo{flex:0 0 76%;scroll-snap-align:start;padding:22px}
+}
+html[data-variacao="2"] .clinica{grid-template-columns:1fr;gap:32px}
+html[data-variacao="2"] .clinica-foto{aspect-ratio:21/9}
+html[data-variacao="2"] .clinica-texto{display:grid;grid-template-columns:.9fr 1.1fr;column-gap:56px;align-items:end}
+html[data-variacao="2"] .clinica-texto p.texto,html[data-variacao="2"] .rt{grid-column:2}
+html[data-variacao="2"] .clinica-texto > .rotulo,html[data-variacao="2"] .clinica-texto > .titulo{grid-column:1}
+html[data-variacao="2"] .clinica-texto p.texto{grid-row:1 / span 2;margin:0}
+@media (max-width:900px){ html[data-variacao="2"] .clinica-foto{aspect-ratio:4/3} html[data-variacao="2"] .clinica-texto{display:block} html[data-variacao="2"] .clinica-texto p.texto{margin-top:16px} }
+html[data-variacao="2"] .galeria{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;overflow:visible;scroll-snap-type:none}
+html[data-variacao="2"] .galeria figure{flex:none}
+html[data-variacao="2"] .galeria-conta{display:none}
+@media (max-width:760px){ html[data-variacao="2"] .galeria{grid-template-columns:1fr 1fr;margin:32px 0 0;padding:0} html[data-variacao="2"] .galeria::after{display:none} }
+html[data-variacao="2"] .reputacao{width:auto;margin-left:0;padding:48px 52px}
+@media (max-width:900px){ html[data-variacao="2"] .reputacao{padding:30px 22px} }
+html[data-variacao="2"] .reputacao .botao.contorno{border-color:#fff}
+html[data-variacao="2"] .final{background:var(--marca)}
+html[data-variacao="2"] .final .botao.claro:hover{background:var(--claro)}
+
+/* ================= Variação 3: Vermelho =================
+   "Oficina" + nome em vermelho, gigante; foto ao lado de três caixas com borda; serviços em ficha com linha pontilhada até "Orçar";
+   "como funciona" em linha vertical com losangos; oficina com duas fotos lado a lado; galeria em mosaico; avaliações em caixa com borda vermelha. */
+html[data-variacao="3"]{
+  --fundo:#F6F3F1; --tinta:#1C1A19; --suave:#5E5853; --linha:#E2DCD7;
+  --marca:#D62828; --sobre-marca:#FFFFFF; --marca-escura:#B51F1F; --claro:#F6DCD8; --foto:#DDD6D0;
+  --barra-fundo:#F6F3F1; --barra-cor:#1C1A19;
+  --titulo:"Big Shoulders Display", "Arial Narrow", "Segoe UI", sans-serif;
+  --texto:"Work Sans", "Segoe UI", system-ui, sans-serif;
+  --sombra: 0 24px 60px -30px rgba(28,26,25,.36);
+}
+html[data-variacao="3"] h1,html[data-variacao="3"] h2,html[data-variacao="3"] h3{font-weight:800}
+html[data-variacao="3"] .nav{border-bottom:3px solid var(--marca)}
+html[data-variacao="3"] .nav .direita .botao{font-size:15px}
+html[data-variacao="3"] .faixa-orcamento,html[data-variacao="3"] .hero-meta,html[data-variacao="3"] .sinais,html[data-variacao="3"] .h1-slogan,html[data-variacao="3"] .hero .etiqueta{display:none}
+html[data-variacao="3"] .h1-pre{display:block}
+html[data-variacao="3"] .h1-nome{display:block;color:var(--marca)}
+html[data-variacao="3"] .hero{padding-top:67px}
+html[data-variacao="3"] .hero-grade{display:grid;grid-template-columns:1.3fr .8fr 1fr;grid-template-areas:"titulo titulo titulo" "foto ficha apoio" "foto ficha botao";column-gap:28px;row-gap:24px;padding-top:34px;align-items:start}
+html[data-variacao="3"] .hero-texto{display:contents}
+html[data-variacao="3"] .hero h1{grid-area:titulo;font-size:clamp(70px,11vw,170px);line-height:.8;margin:0 0 8px}
+html[data-variacao="3"] .hero-foto{grid-area:foto;width:auto;margin:0;height:auto;aspect-ratio:4/3}
+html[data-variacao="3"] .ficha{grid-area:ficha;display:flex;flex-direction:column;gap:8px;align-self:stretch}
+html[data-variacao="3"] .ficha > *{flex:1;margin:0;padding:12px 14px;border:2px solid var(--tinta);font-size:13.5px;line-height:1.3}
+html[data-variacao="3"] .ficha b{display:block;font-size:16px;font-weight:600}
+html[data-variacao="3"] .ficha span{color:var(--suave)}
+html[data-variacao="3"] .ficha .status{display:block}
+html[data-variacao="3"] .ficha .status.aberto b{color:var(--aberto)}
+html[data-variacao="3"] .hero .apoio{grid-area:apoio;margin:0;align-self:end}
+html[data-variacao="3"] .botao-topo{grid-area:botao;display:inline-flex;justify-self:start}
+@media (max-width:900px){
+  html[data-variacao="3"] .hero-grade{grid-template-columns:1.2fr 1fr;grid-template-areas:"titulo titulo" "foto ficha" "apoio apoio" "botao botao";column-gap:12px;row-gap:18px;padding-top:24px}
+  html[data-variacao="3"] .hero h1{font-size:clamp(62px,20vw,92px)}
+  html[data-variacao="3"] .hero-foto{aspect-ratio:auto;height:100%;min-height:220px}
+  html[data-variacao="3"] .ficha > *{padding:9px 10px;font-size:12px}
+  html[data-variacao="3"] .ficha b{font-size:14px}
+  html[data-variacao="3"] .botao-topo{justify-self:stretch;justify-content:space-between}
+}
+html[data-variacao="3"] .lista-proc{display:block;padding:14px 30px;background:var(--cartao);border:2px solid var(--tinta)}
+html[data-variacao="3"] .proc{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:4px 12px;padding:16px 0;background:none;border:0;border-bottom:1px solid var(--linha)}
+html[data-variacao="3"] .proc:last-child{border-bottom:0}
+html[data-variacao="3"] .proc:hover{transform:none}
+html[data-variacao="3"] .proc::after{content:"";grid-column:2;grid-row:1;border-bottom:2px dotted var(--marca);transform:translateY(-6px)}
+html[data-variacao="3"] .proc .num{display:none}
+html[data-variacao="3"] .proc .corpo{display:contents}
+html[data-variacao="3"] .proc h3{grid-column:1;grid-row:1;font-size:26px}
+html[data-variacao="3"] .proc p{grid-column:1 / -1;grid-row:2}
+html[data-variacao="3"] .proc .ir{display:block;grid-column:3;grid-row:1;color:var(--marca);font-weight:600;font-size:14.5px}
+html[data-variacao="3"] .proc .ir svg{display:none}
+html[data-variacao="3"] .proc:hover .ir{text-decoration:underline}
+@media (max-width:900px){ html[data-variacao="3"] .lista-proc{padding:6px 18px} html[data-variacao="3"] .proc h3{font-size:21px} }
+html[data-variacao="3"] .passos{grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+html[data-variacao="3"] .passo{position:relative;display:flex;flex-direction:column;gap:8px;padding:0 28px 0 0;border:0}
+html[data-variacao="3"] .passo .n{width:20px;height:20px;margin-bottom:14px;font-size:0;background:var(--marca);-webkit-text-stroke:0;transform:rotate(45deg)}
+html[data-variacao="3"] .passo:not(:last-child)::after{content:"";position:absolute;top:9px;left:36px;right:8px;height:2px;background:var(--marca)}
+html[data-variacao="3"] .passo h3{font-size:30px}
+@media (max-width:900px){
+  html[data-variacao="3"] .passos{grid-template-columns:1fr;border:0}
+  html[data-variacao="3"] .passo{display:grid;grid-template-columns:30px 1fr;column-gap:14px;row-gap:4px;padding:0 0 26px}
+  html[data-variacao="3"] .passo .n{grid-row:1 / span 2;margin:6px 0 0 3px;width:18px;height:18px}
+  html[data-variacao="3"] .passo:not(:last-child)::after{top:30px;bottom:4px;left:11px;right:auto;width:2px;height:auto}
+  html[data-variacao="3"] .passo h3{font-size:26px}
+}
+html[data-variacao="3"] .clinica{grid-template-columns:1fr;gap:28px}
+html[data-variacao="3"] .clinica-fotos{grid-template-columns:1fr 1fr}
+html[data-variacao="3"] .clinica-fotos:has(.foto-2[data-vazia]){grid-template-columns:1fr}
+html[data-variacao="3"] .clinica-foto{aspect-ratio:4/3}
+html[data-variacao="3"] .clinica-texto{max-width:760px}
+html[data-variacao="3"] .galeria{display:block;columns:3;column-gap:8px;overflow:visible;scroll-snap-type:none}
+html[data-variacao="3"] .galeria figure{display:block;margin:0 0 8px;break-inside:avoid;aspect-ratio:4/5}
+html[data-variacao="3"] .galeria figure:nth-child(3n+2){aspect-ratio:1}
+html[data-variacao="3"] .galeria figure:nth-child(3n){aspect-ratio:4/3}
+html[data-variacao="3"] .galeria-conta{display:none}
+@media (max-width:760px){ html[data-variacao="3"] .galeria{columns:2;margin:32px 0 0;padding:0} html[data-variacao="3"] .galeria::after{display:none} }
+html[data-variacao="3"] .reputacao{width:auto;margin-left:0;padding:40px 44px;background:var(--cartao);color:var(--tinta);border:4px solid var(--marca)}
+html[data-variacao="3"] .reputacao .num{color:var(--marca)}
+html[data-variacao="3"] .reputacao .estrelas{color:var(--marca)}
+html[data-variacao="3"] .reputacao p{color:var(--suave);opacity:1}
+@media (max-width:900px){ html[data-variacao="3"] .reputacao{padding:28px 22px} }
+html[data-variacao="3"] .final{background:var(--marca)}
+html[data-variacao="2"] .final .botao,html[data-variacao="3"] .final .botao{background:#fff;color:var(--tinta)}
+
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="conteiner barra">
+    <a class="marca" href="#" data-campo="nome">Auto Center</a>
+    <nav class="links" aria-label="Principal">
+      <a href="#servicos">Serviços</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#oficina">A oficina</a>
+      <a href="#visite">Como chegar</a>
+    </nav>
+    <div class="direita">
+      <a class="botao cheio pequeno" data-link="whatsapp" href="#" target="_blank" rel="noopener" data-texto="botao_curto">Orçamento</a>
+      <button class="menu-botao" id="menu-botao" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">
+        <span class="menu-icone" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" inert aria-hidden="true">
+  <nav aria-label="Menu">
+    <a href="#servicos" style="--i:0">Serviços</a>
+    <a href="#como-funciona" style="--i:1">Como funciona</a>
+    <a href="#oficina" style="--i:2">A oficina</a>
+    <a href="#visite" style="--i:3">Como chegar</a>
+  </nav>
+  <div class="menu-rodape" style="--i:4">
+    <p class="status" data-status hidden><i class="ponto" aria-hidden="true"></i><span class="s1"></span><span class="s2"></span></p>
+    <a class="botao cheio" data-link="whatsapp" href="#" target="_blank" rel="noopener"><span data-texto="botao_whatsapp">Pedir orçamento pelo WhatsApp</span></a>
+  </div>
+</div>
+
+<main>
+  <section class="hero">
+    <div class="conteiner hero-grade">
+      <div class="hero-foto" data-foto="0" data-inicial></div>
+      <a class="faixa-orcamento" data-link="whatsapp" href="#" target="_blank" rel="noopener"><span data-texto="faixa_orcamento">Orçamento pelo WhatsApp</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <div class="hero-texto">
+        <p class="hero-meta" id="rotulo-topo">Oficina mecânica · Centro</p>
+        <p class="status etiqueta" data-status hidden><i class="ponto" aria-hidden="true"></i><span class="s1"></span><span class="s2"></span></p>
+        <h1><span class="h1-pre">Oficina </span><span class="h1-nome" data-campo="nome">Auto Center</span><span class="h1-slogan" data-texto="slogan">Seu carro em mãos de confiança.</span></h1>
+        <p class="apoio" id="apoio" data-texto="apoio">Diagnóstico honesto e orçamento aprovado por você antes de qualquer serviço.</p>
+        <p class="sinais"><span class="status" data-status hidden><i class="ponto" aria-hidden="true"></i><span class="s1"></span><span class="s2"></span></span><span id="sinal-nota">★ <b data-campo="nota-fmt">4,8</b> no Google</span></p>
+        <a class="botao cheio botao-topo" data-link="whatsapp" href="#" target="_blank" rel="noopener"><span data-texto="botao_topo">Pedir orçamento</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="ficha">
+        <p class="status" data-status hidden><b class="s1"></b><span class="s2"></span></p>
+        <p id="fato-nota"><b>Nota <span data-campo="nota-fmt">4,8</span> ★</b><span id="ficha-nota-texto">212 avaliações</span></p>
+        <p id="fato-local"><span id="local-texto"><b>Centro</b><span>Poços de Caldas</span></span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco" id="servicos">
+    <div class="conteiner">
+      <div class="cab">
+        <div>
+          <span class="rotulo">Serviços</span>
+          <h2 class="titulo revela-titulo" style="margin-top:12px" data-texto="titulo_servicos">Do que seu carro precisa?</h2>
+        </div>
+        <p class="lead" data-texto="lead_servicos">Toque no serviço para pedir um orçamento pelo WhatsApp. Nada é feito sem a sua aprovação.</p>
+      </div>
+      <div class="lista-proc" id="lista-servicos"></div>
+    </div>
+  </section>
+
+  <section class="bloco" id="como-funciona">
+    <div class="conteiner">
+      <h2 class="titulo revela-titulo" data-texto="titulo_como_funciona">Como funciona</h2>
+      <ol class="passos">
+        <li class="passo"><span class="n">1</span><h3 data-texto="passo1_titulo">Diagnóstico</h3><p data-texto="passo1_texto">A gente encontra o problema antes de mexer em qualquer coisa.</p></li>
+        <li class="passo"><span class="n">2</span><h3 data-texto="passo2_titulo">Orçamento aprovado por você</h3><p data-texto="passo2_texto">Peças e mão de obra por escrito, antes de começar.</p></li>
+        <li class="passo"><span class="n">3</span><h3 data-texto="passo3_titulo">Serviço e entrega</h3><p data-texto="passo3_texto">Você acompanha pelo WhatsApp e retira no horário combinado.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="bloco" id="oficina">
+    <div class="conteiner">
+      <div class="clinica">
+        <div class="clinica-fotos">
+          <div class="clinica-foto cortina" data-foto="2"></div>
+          <div class="clinica-foto cortina foto-2" data-foto="3"></div>
+        </div>
+        <div class="clinica-texto">
+          <span class="rotulo">Sobre nós</span>
+          <h2 class="titulo revela-titulo" style="margin-top:12px" data-texto="titulo_oficina">A oficina</h2>
+          <p class="texto" id="texto-sobre" data-texto="texto_sobre">Equipe experiente, ferramentas certas e transparência do começo ao fim. Aqui você entende o que está sendo feito no seu carro e por quê.</p>
+          <div class="rt" id="rt" hidden>
+            <span class="mono" id="rt-mono" aria-hidden="true"></span>
+            <div><small>Responsável técnico</small><b id="rt-nome"></b></div>
+          </div>
+        </div>
+      </div>
+      <div id="fotos">
+        <div class="galeria" id="galeria"></div>
+        <p class="galeria-conta" aria-hidden="true"><b id="galeria-atual">1</b> de <span id="galeria-total">6</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco" id="avaliacoes">
+    <div class="conteiner">
+      <div class="reputacao">
+        <div class="num" data-campo="nota-fmt">4,8</div>
+        <div class="rep-texto">
+          <div class="estrelas" data-estrelas></div>
+          <h2 data-texto="titulo_avaliacoes">Quem conserta aqui, volta.</h2>
+          <p id="texto-reputacao">Essa é a nota média de 212 avaliações de clientes no Google.</p>
+        </div>
+        <a class="botao contorno" data-link="maps_url" href="#" target="_blank" rel="noopener">Ler as avaliações</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco" id="visite">
+    <div class="conteiner">
+      <span class="rotulo">Endereço e horários</span>
+      <h2 class="titulo revela-titulo" style="margin-top:12px">Como chegar</h2>
+      <div class="mapa-bloco">
+        <div class="mapa" id="mapa"></div>
+        <div class="cartao-mapa vidro">
+          <h3 data-campo="nome">Auto Center</h3>
+          <address id="endereco">Praça Dr. Pedro Sanches - Centro, Poços de Caldas - MG</address>
+          <p class="status" data-status hidden><i class="ponto" aria-hidden="true"></i><span class="s1"></span><span class="s2"></span></p>
+          <ul class="horarios" id="horarios"></ul>
+          <div class="acoes">
+            <a class="botao cheio pequeno" data-link="whatsapp" href="#" target="_blank" rel="noopener" data-texto="botao_curto">Orçamento</a>
+            <a class="seta" data-link="maps_url" href="#" target="_blank" rel="noopener">Abrir no Google Maps <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco">
+    <div class="conteiner">
+      <div class="final">
+        <div>
+          <h2 class="revela-titulo" data-texto="titulo_final">Seu carro merece um orçamento honesto.</h2>
+          <p data-texto="texto_final">Conte o que está acontecendo com o carro e receba o retorno direto no WhatsApp.</p>
+        </div>
+        <a class="botao cheio" data-link="whatsapp" href="#" target="_blank" rel="noopener"><span data-texto="botao_whatsapp">Pedir orçamento pelo WhatsApp</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="conteiner">
+    <div class="rodape">
+      <div>
+        <span class="marca" data-campo="nome">Auto Center</span>
+        <span class="profissao" data-texto="profissao">Oficina mecânica</span>
+        <span id="rodape-endereco"></span>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <a data-link="whatsapp" href="#" target="_blank" rel="noopener" id="rodape-telefone">WhatsApp</a>
+        <a data-link="instagram" href="#" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <div>
+        <h4>Visite</h4>
+        <a data-link="maps_url" href="#" target="_blank" rel="noopener">Ver no Google Maps</a>
+        <a href="#visite">Horários</a>
+      </div>
+    </div>
+    <p class="responsavel" id="responsavel" hidden></p>
+    <p class="credito">Site criado por <a href="https://marquisedigital.github.io/" target="_blank" rel="noopener">Marquise Digital</a></p>
+  </div>
+</footer>
+
+<div class="barra-zap">
+  <a class="botao cheio" data-link="whatsapp" href="#" target="_blank" rel="noopener"><span data-texto="botao_whatsapp">Pedir orçamento pelo WhatsApp</span></a>
+</div>
+
+<dialog class="visor" id="visor" aria-label="Fotos da oficina">
+  <img id="visor-img" alt="">
+  <button class="controle vidro visor-fechar" id="visor-fechar" type="button" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <button class="controle vidro visor-ant" id="visor-ant" type="button" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <button class="controle vidro visor-prox" id="visor-prox" type="button" aria-label="Próxima foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  <p class="visor-conta" id="visor-conta"></p>
+</dialog>
+
+<script>
+/* ================= NÚCLEO (regras): preenche o site com os dados do cliente =================
+   Regras fixas de todos os modelos: nota só com 4,3+ e 10+ avaliações; galeria só com fotos suficientes;
+   "aberto agora" pelos horários do Google; links ausentes escondidos; fotos no tamanho da moldura. */
+(function(){
+  var d = {};
+  try { d = JSON.parse(document.getElementById('dados').textContent); } catch(e) { return; }
+  var $ = function(id){ return document.getElementById(id); };
+  var seguro = function(u){ return /^https?:\/\//i.test(String(u || '')) ? u : ''; };
+  var texto = function(el, t){ if (el && t) el.textContent = t; };
+  var esconder = function(el){ if (el) el.style.display = 'none'; };
+  var limpo = function(s){ return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
+
+  // "textos" no bloco de dados troca qualquer texto marcado com data-texto (aceita só <em> e {nome})
+  if (d.textos && typeof d.textos === 'object') {
+    document.querySelectorAll('[data-texto]').forEach(function(el){
+      var v = d.textos[el.getAttribute('data-texto')];
+      if (v) el.innerHTML = limpo(v).replace(/&lt;(\/?)em&gt;/g, '<$1em>').replace(/\{nome\}/g, limpo(d.nome || ''));
+    });
+  }
+
+  var nota = Number(d.nota) || 0;
+  var notaFmt = nota ? nota.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) : '';
+  var aval = Number(d.avaliacoes) || 0;
+  var nicho = d.nicho || 'Oficina mecânica';
+
+  document.querySelectorAll('[data-campo="nome"]').forEach(function(el){ el.textContent = d.nome; });
+  document.querySelectorAll('[data-campo="nota-fmt"]').forEach(function(el){ el.textContent = notaFmt; });
+  document.title = d.nome + ' | ' + nicho;
+  texto($('rotulo-topo'), nicho + (d.bairro ? ' · ' + d.bairro : ''));
+  if (d.apoio) texto($('apoio'), d.apoio);
+
+  // Links. "mensagem_whatsapp" (só na demonstração) deixa uma mensagem pronta em todos os botões de WhatsApp
+  var zap = seguro(d.whatsapp);
+  var comTexto = function(t){ return zap + (zap.indexOf('?') > -1 ? '&' : '?') + 'text=' + encodeURIComponent(t); };
+  ['whatsapp', 'maps_url', 'instagram'].forEach(function(k){
+    var u = seguro(d[k]);
+    if (k === 'whatsapp' && u && d.mensagem_whatsapp) u = comTexto(d.mensagem_whatsapp);
+    document.querySelectorAll('[data-link="' + k + '"]').forEach(function(a){ if (u) a.href = u; else esconder(a); });
+  });
+  if (!zap) esconder(document.querySelector('.barra-zap'));
+
+  // Estrelas
+  var est = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z"/></svg>';
+  document.querySelectorAll('[data-estrelas]').forEach(function(el){
+    el.innerHTML = new Array(Math.max(0, Math.min(5, Math.round(nota))) + 1).join(est);
+  });
+
+  // Reputação só com nota boa
+  if (nota >= 4.3 && aval >= 10) {
+    texto($('selo-texto'), aval + ' avaliações no Google');
+    texto($('meta-nota'), notaFmt + ' · Google');
+    texto($('ficha-nota-texto'), aval + ' avaliações');
+    texto($('texto-reputacao'), 'Essa é a nota média de ' + aval + ' avaliações de clientes no Google.');
+  } else { esconder($('selo')); esconder($('meta-nota')); esconder($('sinal-nota')); esconder($('fato-nota')); esconder($('avaliacoes')); }
+
+  // Bairro e cidade na faixa de confiança
+  var local = $('local-texto');
+  if (d.bairro || d.cidade) {
+    local.innerHTML = '<b>' + limpo(d.bairro || d.cidade) + '</b>' + (d.bairro && d.cidade ? '<span>' + limpo(d.cidade) + '</span>' : '');
+  } else esconder($('fato-local'));
+
+  // Fotos do Unsplash: pede cada uma no tamanho da moldura (no máximo 2x a tela)
+  var fotos = (d.fotos || []).filter(seguro);
+  // Só na demonstração: ?fotos=0 (ou 3, 5...) simula um cliente com poucas fotos
+  if (d.demonstracao) { var mf = /[?&]fotos=(\d+)/.exec(location.search); if (mf) fotos = fotos.slice(0, +mf[1]); }
+  var variacao = document.documentElement.getAttribute('data-variacao') || '1';
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var medida = function(n){ return Math.min(2400, Math.max(200, Math.ceil(n * dpr / 200) * 200)); };
+  var unsplash = function(u){ return /images\.unsplash\.com/.test(u) && u.indexOf('?') === -1; };
+  function tamanho(el, url){
+    if (!unsplash(url)) return url;
+    var r = el.getBoundingClientRect(), w = r.width, h = r.height;
+    if (!w || !h) return url + '?auto=format&fit=crop&w=1200&q=70';
+    if (el.classList.contains('paralaxe')) h *= 1.16;
+    return url + '?auto=format&fit=crop&w=' + medida(w) + '&h=' + medida(h) + '&q=70';
+  }
+  var inicial = (d.nome || '?').replace(/^(clínica|clinica|odontologia|odonto|consultório|consultorio|centro|instituto|dra?\.?)\s+/i, '').charAt(0).toUpperCase();
+  function arte(el, comInicial){
+    el.innerHTML = '';
+    el.style.background = 'radial-gradient(90% 70% at 30% 25%, var(--destaque-claro), transparent 65%), linear-gradient(160deg, var(--cartao), var(--foto))';
+    if (comInicial) {
+      var m = document.createElement('div');
+      m.style.cssText = 'position:absolute;inset:0;display:grid;place-items:center;font:700 clamp(110px,16vw,180px)/1 var(--titulo);letter-spacing:-.05em;color:var(--destaque)';
+      m.textContent = inicial; el.appendChild(m);
+    }
+  }
+  function foto(el, url, comInicial){
+    if (!el) return;
+    var pronta; el._pronta = new Promise(function(r){ pronta = r; });
+    if (!url) { arte(el, comInicial); pronta(); return; }
+    el.setAttribute('data-base', url);
+    var noTopo = !!el.closest('.hero');
+    var img = new Image(); img.alt = ''; img.className = 'foto-img'; img.decoding = 'async';
+    img.loading = noTopo ? 'eager' : 'lazy';
+    if (noTopo) img.setAttribute('fetchpriority', 'high');
+    img.onload = function(){
+      var mostrar = function(){ img.classList.add('carregou'); pronta(); };
+      if (img.decode) img.decode().then(mostrar, mostrar); else mostrar();
+    };
+    img.onerror = function(){ arte(el, comInicial); pronta(); };
+    img.src = tamanho(el, url); el.insertBefore(img, el.firstChild);
+  }
+  /* ===== NÚCLEO (regra): o site se adapta à quantidade de fotos =====
+     0 fotos: arte com o nome e cores; 1 a 5: as fotos vão para os lugares mais importantes e o resto some;
+     6 ou mais: site completo. A galeria usa as fotos que sobraram e só aparece com 3 ou mais. */
+  // Lugares de foto de cada variação: topo, "a oficina" e, na variação 3, a segunda foto da oficina
+  var LUGARES = { '1': [0, 2], '2': [0, 2], '3': [0, 2, 3] }[variacao] || [0, 2];
+  var PRIORIDADE = LUGARES;      // ordem de preenchimento com poucas fotos
+  var N = fotos.length, porLugar = {}, usada = {};
+  document.documentElement.setAttribute('data-fotos', N === 0 ? 'sem' : N < 6 ? 'poucas' : 'todas');
+  if (N >= 6) LUGARES.forEach(function(l){ porLugar[l] = fotos[l]; usada[l] = true; });
+  else PRIORIDADE.forEach(function(l, k){ if (k < N) { porLugar[l] = fotos[k]; usada[k] = true; } });
+  document.querySelectorAll('[data-foto]').forEach(function(el){
+    var l = Number(el.getAttribute('data-foto')), url = porLugar[l], comInicial = el.hasAttribute('data-inicial');
+    if (!url && !comInicial) { el.setAttribute('data-vazia', ''); el._pronta = Promise.resolve(); return; }
+    foto(el, url, comInicial);
+  });
+  if (!porLugar[2]) document.documentElement.classList.add('clinica-sem-foto');
+  var gal = $('galeria');
+  var sobra = [];
+  fotos.forEach(function(u, i){ if (!usada[i]) sobra.push(i); });
+  sobra.sort(function(a, b){ return (a < 6) - (b < 6) || a - b; });        // a galeria prefere as fotos 6 a 11
+  sobra = sobra.slice(0, 6);
+  if (gal && sobra.length >= 3) {
+    if (sobra.length < 6) document.documentElement.classList.add('galeria-curta');
+    sobra.forEach(function(i){ var f = document.createElement('figure'); f.className = 'cortina'; gal.appendChild(f); foto(f, fotos[i]); });
+  } else esconder($('fotos'));
+
+  // Procedimentos: cada um abre o WhatsApp com a pergunta pronta
+  var SETA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  var lista = $('lista-servicos');
+  if (lista && Array.isArray(d.servicos) && d.servicos.length) {
+    d.servicos.forEach(function(s, i){
+      var item = document.createElement(zap ? 'a' : 'div'); item.className = 'proc';
+      if (zap) { item.href = comTexto(d.mensagem_whatsapp || ('Olá! Gostaria de um orçamento de ' + s.nome.toLowerCase() + '.')); item.target = '_blank'; item.rel = 'noopener'; item.setAttribute('aria-label', s.nome + ': pedir orçamento pelo WhatsApp'); }
+      var n = document.createElement('span'); n.className = 'num'; n.textContent = (i < 9 ? '0' : '') + (i + 1);
+      var corpo = document.createElement('span'); corpo.className = 'corpo';
+      var h = document.createElement('h3'); h.textContent = s.nome;
+      var p = document.createElement('p'); p.textContent = s.desc || '';
+      var ir = document.createElement('span'); ir.className = 'ir'; ir.innerHTML = '<span>Orçar</span>' + SETA;
+      corpo.appendChild(h); corpo.appendChild(p);
+      item.appendChild(n); item.appendChild(corpo); if (zap) item.appendChild(ir); lista.appendChild(item);
+    });
+  } else esconder($('servicos'));
+
+  // Sobre
+  if (d.sobre) texto($('texto-sobre'), d.sobre);
+  if (d.frase) texto($('frase-sobre'), d.frase);
+
+  // Responsável técnico (publicidade odontológica: nome e CRO do responsável)
+  if (d.responsavel_tecnico) {
+    var rt = String(d.responsavel_tecnico);
+    texto($('rt-nome'), rt);
+    texto($('rt-mono'), (rt.replace(/^dra?\.?\s+/i, '').charAt(0) || '').toUpperCase());
+    $('rt').hidden = false;
+    texto($('responsavel'), 'Responsável técnico: ' + rt); $('responsavel').hidden = false;
+  }
+
+  // Endereço, mapa, horários
+  texto($('endereco'), d.endereco); texto($('rodape-endereco'), d.endereco);
+  if (d.telefone) texto($('rodape-telefone'), 'WhatsApp ' + d.telefone);
+  var mapa = $('mapa');
+  if (mapa && d.endereco) {
+    var fr = document.createElement('iframe');
+    fr.src = 'https://maps.google.com/maps?q=' + encodeURIComponent(d.demonstracao ? d.endereco : d.nome + ', ' + d.endereco) + '&output=embed';
+    fr.loading = 'lazy'; fr.title = 'Mapa com a localização de ' + d.nome; fr.referrerPolicy = 'no-referrer-when-downgrade';
+    mapa.appendChild(fr);
+  }
+  var dias = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+  var hs = $('horarios');
+  if (hs && Array.isArray(d.horarios) && d.horarios.length) {
+    var hoje = dias[new Date().getDay()];
+    d.horarios.forEach(function(linha){
+      var p = String(linha).split(/:\s(.+)/), li = document.createElement('li');
+      if (p[0].toLowerCase() === hoje) li.className = 'hoje';
+      var a = document.createElement('span'); a.textContent = p[0].charAt(0).toUpperCase() + p[0].slice(1);
+      var b = document.createElement('span'); b.textContent = (p[1] || '').replace(/Closed/i, 'Fechado');
+      li.appendChild(a); li.appendChild(b); hs.appendChild(li);
+    });
+  } else esconder(hs);
+
+  // "Aberto agora": calculado com os horários do Google, no relógio de quem visita
+  var faixas = {};
+  (Array.isArray(d.horarios) ? d.horarios : []).forEach(function(linha){
+    var p = String(linha).split(/:\s(.+)/), idx = dias.indexOf(p[0].toLowerCase().trim());
+    if (idx < 0) return;
+    var resto = p[1] || '', lst = [], re = /(\d{1,2}):(\d{2})\s*[–—-]\s*(\d{1,2}):(\d{2})/g, m;
+    if (/24\s*(horas|hours)/i.test(resto)) lst.push([0, 1440]);
+    else while ((m = re.exec(resto))) {
+      var ini = m[1] * 60 + +m[2], fim = m[3] * 60 + +m[4];
+      if (fim <= ini) fim += 1440;
+      lst.push([ini, fim]);
+    }
+    faixas[idx] = lst.sort(function(x, y){ return x[0] - y[0]; });
+  });
+  var curto = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
+  function as(min){
+    min = ((min % 1440) + 1440) % 1440;
+    if (min === 0) return 'à meia-noite';
+    var h = Math.floor(min / 60), mm = min % 60, t = h + 'h' + (mm ? (mm < 10 ? '0' : '') + mm : '');
+    return (h === 1 ? 'à ' : 'às ') + t;
+  }
+  function ate(min){
+    var t = as(min);
+    return t === 'à meia-noite' ? 'até meia-noite' : t.indexOf('à ') === 0 ? 'até a ' + t.slice(2) : 'até as ' + t.slice(3);
+  }
+  function situacao(){
+    if (!Object.keys(faixas).length) return null;
+    var agora = new Date(), dia = agora.getDay(), min = agora.getHours() * 60 + agora.getMinutes();
+    var ontem = faixas[(dia + 6) % 7] || [], hojeF = faixas[dia] || [], i;
+    for (i = 0; i < ontem.length; i++) if (ontem[i][1] > 1440 && min < ontem[i][1] - 1440) return { aberto: true, t1: 'Aberto agora', t2: ate(ontem[i][1]) };
+    for (i = 0; i < hojeF.length; i++) {
+      if (hojeF[i][0] === 0 && hojeF[i][1] === 1440) return { aberto: true, t1: 'Aberto 24 horas', t2: '' };
+      if (min >= hojeF[i][0] && min < hojeF[i][1]) return { aberto: true, t1: 'Aberto agora', t2: ate(hojeF[i][1]) };
+    }
+    for (i = 0; i < hojeF.length; i++) if (hojeF[i][0] > min) return { aberto: false, t1: 'Abre hoje ' + as(hojeF[i][0]), t2: '' };
+    for (var k = 1; k <= 7; k++) {
+      var di = (dia + k) % 7, l = faixas[di] || [];
+      if (l.length) {
+        var quando = k === 1 ? 'amanhã' : (di === 0 || di === 6 ? 'no ' : 'na ') + curto[di];
+        return { aberto: false, t1: 'Abre ' + quando + ' ' + as(l[0][0]), t2: '' };
+      }
+    }
+    return null;
+  }
+  var avisos = document.querySelectorAll('[data-status]');
+  function atualizarStatus(){
+    var s = situacao();
+    avisos.forEach(function(el){
+      if (!s) { el.hidden = true; return; }
+      el.classList.toggle('aberto', s.aberto);
+      el.querySelector('.s1').textContent = s.t1;
+      var s2 = el.querySelector('.s2'); s2.textContent = s.t2; s2.hidden = !s.t2;
+      el.hidden = false;
+    });
+  }
+  atualizarStatus(); setInterval(atualizarStatus, 60000);
+})();
+</script>
+
+<script>
+/* ================= NÚCLEO (referência): movimento e navegação ================= */
+(function(){
+  var html = document.documentElement;
+  var anim = html.classList.contains('anim');
+  var $ = function(id){ return document.getElementById(id); };
+  var temIO = 'IntersectionObserver' in window;
+  var temPromise = typeof Promise !== 'undefined';
+  var esperar = function(p, ms){ return Promise.race([p, new Promise(function(r){ setTimeout(r, ms); })]); };
+
+  // Divide um título em palavras, cada uma com sua "máscara"
+  function dividir(el){
+    if (!el || el.classList.contains('dividido')) return;
+    el.setAttribute('aria-label', el.textContent.replace(/\s+/g, ' ').trim());
+    var n = 0;
+    (function anda(no){
+      Array.prototype.slice.call(no.childNodes).forEach(function(c){
+        if (c.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          c.textContent.split(/(\s+)/).forEach(function(p){
+            if (!p) return;
+            if (/^\s+$/.test(p)) { frag.appendChild(document.createTextNode(' ')); return; }
+            var w = document.createElement('span'); w.className = 'palavra'; w.setAttribute('aria-hidden', 'true');
+            var s = document.createElement('span'); s.textContent = p; s.style.setProperty('--i', n++);
+            w.appendChild(s); frag.appendChild(w);
+          });
+          c.parentNode.replaceChild(frag, c);
+        } else if (c.nodeType === 1) anda(c);
+      });
+    })(el);
+    el.classList.add('dividido');
+  }
+
+  /* Abertura do topo: começa só quando a foto principal e as fontes estão prontas (no máximo ~2 s) */
+  if (anim) {
+    dividir(document.querySelector('.hero h1'));
+    var abrir = function(){ requestAnimationFrame(function(){ requestAnimationFrame(function(){ html.classList.add('abriu'); }); }); };
+    if (temPromise) {
+      var foto = document.querySelector('.hero-foto');
+      var limite = Math.max(400, 2200 - (window.performance ? performance.now() : 0));
+      esperar(Promise.all([foto && foto._pronta, document.fonts && document.fonts.ready]), limite).then(abrir, abrir);
+    } else abrir();
+  }
+
+  /* Menu em tela cheia (celular) */
+  var botaoMenu = $('menu-botao'), menu = $('menu');
+  if (botaoMenu && menu) {
+    var abrirMenu = function(abre){
+      html.classList.toggle('menu-aberto', abre);
+      botaoMenu.setAttribute('aria-expanded', String(abre));
+      botaoMenu.setAttribute('aria-label', abre ? 'Fechar menu' : 'Abrir menu');
+      menu.setAttribute('aria-hidden', String(!abre));
+      if (abre) menu.removeAttribute('inert'); else menu.setAttribute('inert', '');
+    };
+    botaoMenu.addEventListener('click', function(){ abrirMenu(!html.classList.contains('menu-aberto')); });
+    menu.addEventListener('click', function(e){ if (e.target.closest('a')) abrirMenu(false); });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && html.classList.contains('menu-aberto')) { abrirMenu(false); botaoMenu.focus(); }
+    });
+    var largo = window.matchMedia('(min-width: 901px)');
+    if (largo.addEventListener) largo.addEventListener('change', function(m){ if (m.matches) abrirMenu(false); });
+  }
+
+  /* Galeria: contador do carrossel e visor em tela cheia */
+  var gal = $('galeria');
+  var figs = gal ? Array.prototype.slice.call(gal.querySelectorAll('figure')) : [];
+  if (figs.length) {
+    var atualEl = $('galeria-atual'), totalEl = $('galeria-total'), pg = 0;
+    totalEl.textContent = figs.length;
+    gal.addEventListener('scroll', function(){
+      if (pg) return;
+      pg = requestAnimationFrame(function(){
+        pg = 0;
+        var passo = figs[0].offsetWidth + (parseFloat(getComputedStyle(gal).columnGap) || 12);
+        var i = Math.round(gal.scrollLeft / passo) + 1;
+        if (gal.scrollLeft >= gal.scrollWidth - gal.clientWidth - 2) i = figs.length;
+        atualEl.textContent = Math.max(1, Math.min(figs.length, i));
+      });
+    }, { passive: true });
+
+    var visor = $('visor');
+    if (visor && typeof visor.showModal === 'function') {
+      var vImg = $('visor-img'), vConta = $('visor-conta'), idx = 0;
+      var comFoto = function(){ return figs.filter(function(f){ return f.querySelector('img'); }); };
+      var grande = function(f){
+        var base = f.getAttribute('data-base') || f.querySelector('img').src;
+        if (!/images\.unsplash\.com/.test(base) || base.indexOf('?') > -1) return base;
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        var w = Math.min(2400, Math.ceil(Math.min(window.innerWidth * 0.92, 1100) * dpr / 200) * 200);
+        return base + '?auto=format&fit=max&w=' + w + '&q=75';
+      };
+      var mostrarFoto = function(){ vImg.classList.remove('esperando'); vImg.classList.remove('troca'); void vImg.offsetWidth; vImg.classList.add('troca'); };
+      var ir = function(i){
+        var lista = comFoto(); if (!lista.length) return;
+        idx = (i + lista.length) % lista.length;
+        vConta.textContent = (idx + 1) + ' de ' + lista.length;
+        var nova = grande(lista[idx]);
+        if (vImg.src === nova && vImg.complete) { mostrarFoto(); return; }
+        vImg.classList.add('esperando');
+        vImg.onload = mostrarFoto; vImg.onerror = mostrarFoto;
+        vImg.src = nova;
+      };
+      var abrirVisor = function(f){
+        var i = comFoto().indexOf(f); if (i < 0) return;
+        ir(i); visor.showModal(); html.classList.add('visor-aberto');
+      };
+      figs.forEach(function(f, i){
+        f.tabIndex = 0; f.setAttribute('role', 'button'); f.setAttribute('aria-label', 'Ampliar foto ' + (i + 1));
+        f.addEventListener('click', function(){ abrirVisor(f); });
+        f.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrirVisor(f); } });
+      });
+      visor.addEventListener('close', function(){ html.classList.remove('visor-aberto'); });
+      $('visor-fechar').addEventListener('click', function(){ visor.close(); });
+      $('visor-ant').addEventListener('click', function(){ ir(idx - 1); });
+      $('visor-prox').addEventListener('click', function(){ ir(idx + 1); });
+      visor.addEventListener('click', function(e){ if (e.target === visor) visor.close(); });
+      visor.addEventListener('keydown', function(e){
+        if (e.key === 'ArrowLeft') ir(idx - 1);
+        if (e.key === 'ArrowRight') ir(idx + 1);
+      });
+      var x0 = null;
+      visor.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, { passive: true });
+      visor.addEventListener('touchend', function(e){
+        if (x0 === null) return;
+        var dx = e.changedTouches[0].clientX - x0; x0 = null;
+        if (Math.abs(dx) > 50) ir(dx < 0 ? idx + 1 : idx - 1);
+      });
+    }
+  }
+
+  /* Barra do topo ganha vidro ao rolar */
+  var nav = $('nav'), pedido = 0;
+  var aoRolar = function(){ pedido = 0; if (nav) nav.classList.toggle('rolou', window.scrollY > 24); };
+  window.addEventListener('scroll', function(){ if (!pedido) pedido = requestAnimationFrame(aoRolar); }, { passive: true });
+  aoRolar();
+
+  if (!anim || !temIO || !temPromise) return;
+
+  /* Revelações ao rolar: títulos, fotos e nota */
+  document.querySelectorAll('.revela-titulo').forEach(dividir);
+  document.querySelectorAll('.reputacao .estrelas svg').forEach(function(s, i){ s.style.setProperty('--i', i); });
+  var numNota = document.querySelector('.reputacao .num');
+  var alvoNota = numNota ? parseFloat(String(numNota.textContent).replace(',', '.')) : NaN;
+  var fmt = function(n){ return n.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }); };
+  var podeContar = alvoNota > 0;
+  if (podeContar) numNota.textContent = fmt(0);
+  var contarNota = function(){
+    if (!podeContar) return;
+    var t0 = performance.now(), dur = 1400;
+    requestAnimationFrame(function passo(t){
+      var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      numNota.textContent = fmt(p < 1 ? alvoNota * e : alvoNota);
+      if (p < 1) requestAnimationFrame(passo);
+    });
+  };
+  var revelar = function(el){ el.classList.add('visto'); if (el.classList.contains('reputacao')) contarNota(); };
+  html.classList.add('mov');
+  var io = new IntersectionObserver(function(entradas){
+    var k = 0;
+    entradas.forEach(function(e){
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      el.style.setProperty('--atraso', (k++ * 90) + 'ms');
+      io.unobserve(el);
+      if (el._pronta) esperar(el._pronta, 1500).then(function(){ revelar(el); });
+      else revelar(el);
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
+  document.querySelectorAll('.revela-titulo, .cortina, .reputacao').forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>
