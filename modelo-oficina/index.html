@@ -466,13 +466,15 @@ html[data-variacao="2"] .reputacao .botao.contorno{border-color:#fff}
 html[data-variacao="2"] .final{background:var(--marca)}
 html[data-variacao="2"] .final .botao.claro:hover{background:var(--claro)}
 
-/* ================= Variação 3: Vermelho =================
+/* ================= Variação 3: Vermelho, preto e branco =================
+   Fundo branco; preto nos blocos fortes (barra, topo, "como funciona", avaliações e rodapé); vermelho como destaque.
    "Oficina" + nome em vermelho, gigante; foto ao lado de três caixas com borda; serviços em ficha com linha pontilhada até "Orçar";
-   "como funciona" em linha vertical com losangos; oficina com duas fotos lado a lado; galeria em mosaico; avaliações em caixa com borda vermelha. */
+   "como funciona" em faixa preta com losangos vermelhos; oficina com duas fotos lado a lado; galeria em mosaico;
+   avaliações em bloco preto com barra vermelha; chamada final em vermelho. */
 html[data-variacao="3"]{
-  --fundo:#F6F3F1; --tinta:#1C1A19; --suave:#5E5853; --linha:#E2DCD7;
-  --marca:#D62828; --sobre-marca:#FFFFFF; --marca-escura:#B51F1F; --claro:#F6DCD8; --foto:#DDD6D0;
-  --barra-fundo:#F6F3F1; --barra-cor:#1C1A19;
+  --fundo:#FFFFFF; --cartao:#FFFFFF; --tinta:#111111; --suave:#555555; --linha:#E4E4E4;
+  --marca:#D62828; --sobre-marca:#FFFFFF; --marca-escura:#B51F1F; --claro:#F2F2F2; --foto:#D9D9D9;
+  --barra-fundo:#111111; --barra-cor:#FFFFFF; --preto:#111111;
   --titulo:"Big Shoulders Display", "Arial Narrow", "Segoe UI", sans-serif;
   --texto:"Work Sans", "Segoe UI", system-ui, sans-serif;
   --sombra: 0 24px 60px -30px rgba(28,26,25,.36);
@@ -547,6 +549,28 @@ html[data-variacao="3"] .reputacao p{color:var(--suave);opacity:1}
 @media (max-width:900px){ html[data-variacao="3"] .reputacao{padding:28px 22px} }
 html[data-variacao="3"] .final{background:var(--marca)}
 html[data-variacao="2"] .final .botao,html[data-variacao="3"] .final .botao{background:#fff;color:var(--tinta)}
+
+/* Variação 3: blocos pretos */
+html[data-variacao="3"] .hero{background:var(--preto);color:#fff;padding-bottom:64px}
+html[data-variacao="3"] .hero .apoio{color:rgba(255,255,255,.74)}
+html[data-variacao="3"] .ficha > *{border-color:rgba(255,255,255,.9)}
+html[data-variacao="3"] .ficha span{color:rgba(255,255,255,.68)}
+html[data-variacao="3"] .ficha b span{color:inherit}
+html[data-variacao="3"] .ficha .status.aberto b{color:#4ADE8A}
+html[data-variacao="3"] #como-funciona{margin-top:100px;padding:88px 0 96px;background:var(--preto);color:#fff}
+html[data-variacao="3"] #como-funciona .passo p{color:rgba(255,255,255,.72)}
+html[data-variacao="3"] .reputacao{background:var(--preto);color:#fff;border:0;border-left:10px solid var(--marca)}
+html[data-variacao="3"] .reputacao p{color:rgba(255,255,255,.74)}
+html[data-variacao="3"] .reputacao .botao.contorno{border-color:#fff;color:#fff}
+html[data-variacao="3"] footer{margin-top:100px;background:var(--preto);color:rgba(255,255,255,.7)}
+html[data-variacao="3"] .rodape{border-top-color:var(--marca)}
+html[data-variacao="3"] .rodape .marca,html[data-variacao="3"] .rodape .profissao,html[data-variacao="3"] .rodape h4{color:#fff}
+html[data-variacao="3"] .rodape a:hover{color:#fff}
+@media (max-width:900px){
+  html[data-variacao="3"] .hero{padding-bottom:40px}
+  html[data-variacao="3"] #como-funciona{margin-top:70px;padding:60px 0 64px}
+  html[data-variacao="3"] footer{margin-top:70px}
+}
 
 </style>
 </head>
