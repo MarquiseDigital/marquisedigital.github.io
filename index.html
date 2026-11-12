@@ -138,7 +138,8 @@ p{margin:0}
 .esqueleto span{display:block;border-radius:12px;background:linear-gradient(100deg, #EFE7DB 30%, #F8F3EC 50%, #EFE7DB 70%);background-size:300% 100%;animation:brilho 1.6s linear infinite}
 @keyframes brilho{from{background-position:100% 0}to{background-position:0 0}}
 @media (max-width:860px){
-  .modelos{grid-template-columns:1fr;gap:36px}
+  .modelos{grid-template-columns:minmax(0,1fr);gap:36px}
+  .modelos > *{min-width:0}
   .abas{display:flex;overflow-x:auto;scrollbar-width:none;max-width:none;margin:28px -20px 0;padding:0 20px 4px;scroll-snap-type:x mandatory}
   .abas::-webkit-scrollbar{display:none}
   .aba{flex:none;width:auto;padding:12px 18px;border-radius:999px;font-size:15.5px;scroll-snap-align:start}
